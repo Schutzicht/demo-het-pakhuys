@@ -1,0 +1,269 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import ReserveModal from "../components/ReserveModal.astro";
+import Icon from "../components/Icon.astro";
+import Analytics from "@vercel/analytics/astro";
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  loader?: boolean;
+}
+const {
+  title = "Het Packhuys | Fine dining aan de haven van Middelburg",
+  description = "Het Packhuys serveert een verfijnd seizoensmenu in een authentiek pakhuis aan de jachthaven van Middelburg. Oesters en kreeft uit eigen homarium.",
+  ogImage = "/photos/pand-buiten.jpg",
+  loader = false,
+} = Astro.props;
+const siteUrl = Astro.site ?? "https://demo-het-packhuys.vercel.app";
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageAbs = new URL(ogImage, siteUrl).href;
+const words = ["Proeven", "Beleven", "Genieten"];
+---
+
+<!doctype html>
+<html lang="nl" class="js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Het Packhuys" />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    />
+
+    <ClientRouter />
+    <title>{title}</title>
+  </head>
+  <body data-loader-page={loader ? "1" : undefined}>
+    {loader && (
+      <div class="loader" data-loader>
+        <div class="loader__top">Het Packhuys &middot; Middelburg</div>
+        <div class="loader__center">
+          <div class="loader__word" data-loader-word>{words[0]}</div>
+        </div>
+        <div class="loader__bottom">
+          <div class="text-[0.72rem] uppercase tracking-[0.25em] text-[color:var(--color-muted)] max-w-[16ch]">Fine dining aan de haven</div>
+          <div class="loader__count" data-loader-count>000</div>
+        </div>
+        <div class="loader__bar"><span data-loader-bar></span></div>
+      </div>
+    )}
+
+    <Header />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer />
+    <ReserveModal />
+
+    <button type="button" class="fab" data-reserve-open aria-label="Reserveer een tafel">
+      <span>Reserveren</span>
+      <Icon name="arrow" size={14} stroke={1.8} />
+    </button>
+
+    <Analytics />
+
+    <script is:inline>
+      // FOUC-gate: zonder JS blijft content zichtbaar (.js triggert de hidden-states).
+      (function () {
+        var b = document.body;
+        if (b && b.getAttribute("data-loader-page") === "1" && sessionStorage.getItem("ph-loaded") !== "1") {
+          b.classList.add("loading-active");
+        }
+      })();
+    </script>
+
+    <script>
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+      import Lenis from "lenis";
+      gsap.registerPlugin(ScrollTrigger);
+
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // ── Lenis smooth scroll + ScrollTrigger sync (één keer) ──
+      const w = window as any;
+      if (!w.__lenis && !reduced) {
+        const lenis = new Lenis({ duration: 1.1, easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        w.__lenis = lenis;
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((time: number) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+      }
+      const lock = (on: boolean) => {
+        document.body.classList.toggle("is-locked", on);
+        if (w.__lenis) on ? w.__lenis.stop() : w.__lenis.start();
+      };
+
+      // ── Reserve modal ──
+      const ov = () => document.querySelector<HTMLElement>("[data-reserve-overlay]");
+      function openReserve() { const o = ov(); if (!o) return; o.hidden = false; requestAnimationFrame(() => requestAnimationFrame(() => o.classList.add("is-open"))); lock(true); }
+      function closeReserve() { const o = ov(); if (!o) return; o.classList.remove("is-open"); lock(false); setTimeout(() => { const x = ov(); if (x && !x.classList.contains("is-open")) x.hidden = true; }, 240); }
+
+      // ── Mobiele nav ──
+      function toggleNav(force?: boolean) {
+        const sheet = document.querySelector<HTMLElement>("[data-navsheet]");
+        if (!sheet) return;
+        const open = force ?? !sheet.classList.contains("is-open");
+        sheet.classList.toggle("is-open", open);
+        document.body.classList.toggle("nav-open", open);
+        document.querySelectorAll<HTMLButtonElement>("[data-nav-toggle]").forEach((b) => b.setAttribute("aria-expanded", String(open)));
+        lock(open);
+      }
+
+      // ── Window listeners (één keer) ──
+      const onScroll = () => {
+        const nav = document.querySelector<HTMLElement>("[data-nav]");
+        if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 100);
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          const o = ov(); if (o && o.classList.contains("is-open")) closeReserve();
+          const s = document.querySelector<HTMLElement>("[data-navsheet]"); if (s && s.classList.contains("is-open")) toggleNav(false);
+        }
+      });
+      document.addEventListener("click", (e) => { const o = ov(); if (o && e.target === o) closeReserve(); });
+
+      // ── Loading screen ──
+      function runLoader(done: () => void) {
+        const loader = document.querySelector<HTMLElement>("[data-loader]");
+        if (!loader || sessionStorage.getItem("ph-loaded") === "1" || reduced) {
+          if (loader) loader.remove();
+          document.body.classList.remove("loading-active");
+          done();
+          return;
+        }
+        const countEl = loader.querySelector<HTMLElement>("[data-loader-count]");
+        const barEl = loader.querySelector<HTMLElement>("[data-loader-bar]");
+        const wordEl = loader.querySelector<HTMLElement>("[data-loader-word]");
+        const words = ["Proeven", "Beleven", "Genieten"];
+        let wi = 0;
+        const wordTimer = setInterval(() => {
+          wi = (wi + 1) % words.length;
+          if (wordEl) { wordEl.style.opacity = "0"; setTimeout(() => { wordEl.textContent = words[wi]; wordEl.style.opacity = "1"; }, 180); }
+        }, 850);
+        const start = performance.now();
+        const dur = 2600;
+        const tick = (now: number) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 2);
+          const c = Math.round(eased * 100);
+          if (countEl) countEl.textContent = String(c).padStart(3, "0");
+          if (barEl) barEl.style.transform = `scaleX(${eased})`;
+          if (p < 1) requestAnimationFrame(tick);
+          else {
+            clearInterval(wordTimer);
+            sessionStorage.setItem("ph-loaded", "1");
+            setTimeout(() => {
+              loader.classList.add("is-done");
+              document.body.classList.remove("loading-active");
+              done();
+              setTimeout(() => loader.remove(), 750);
+            }, 350);
+          }
+        };
+        requestAnimationFrame(tick);
+      }
+
+      // ── Hero entree ──
+      function playHero() {
+        const hero = document.querySelector(".hero");
+        if (!hero) return;
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const name = hero.querySelector("[data-hero-name]");
+        const others = hero.querySelectorAll("[data-hero-fade]");
+        if (name) tl.to(name, { opacity: 1, y: 0, duration: 1.2 }, 0.05);
+        if (others.length) tl.to(others, { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, stagger: 0.12 }, 0.25);
+      }
+
+      // ── Scroll reveals + parallax + marquee ──
+      function setupAnims() {
+        // generieke reveals
+        gsap.utils.toArray<HTMLElement>("[data-anim]").forEach((el) => {
+          if (el.closest(".hero")) return; // hero doet eigen entree
+          const y = el.getAttribute("data-anim") === "up" ? 34 : 0;
+          const blur = el.getAttribute("data-anim") === "blur";
+          gsap.to(el, {
+            opacity: 1, y: 0, filter: blur ? "blur(0px)" : "none", duration: 1, ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 86%", once: true },
+          });
+          if (y) gsap.set(el, { y });
+        });
+        // stagger-groepen
+        gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((group) => {
+          const kids = group.querySelectorAll<HTMLElement>("[data-anim]");
+          ScrollTrigger.create({
+            trigger: group, start: "top 84%", once: true,
+            onEnter: () => gsap.to(kids, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.9, ease: "power3.out", stagger: 0.08 }),
+          });
+        });
+        // parallax
+        gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+          const amt = parseFloat(el.getAttribute("data-parallax") || "12");
+          gsap.fromTo(el, { yPercent: -amt }, { yPercent: amt, ease: "none", scrollTrigger: { trigger: el.parentElement || el, start: "top bottom", end: "bottom top", scrub: true } });
+        });
+        // marquee
+        gsap.utils.toArray<HTMLElement>("[data-marquee]").forEach((m) => {
+          const row = m.querySelector<HTMLElement>(".marquee__row");
+          if (row) gsap.to(m.querySelectorAll(".marquee__row"), { xPercent: -100, repeat: -1, duration: 26, ease: "none" });
+        });
+      }
+
+      // ── Open/gesloten ──
+      function openStatus() {
+        const el = document.querySelector<HTMLElement>("[data-open-status]");
+        const txt = document.querySelector<HTMLElement>("[data-open-status-text]");
+        if (!el || !txt) return;
+        const now = new Date();
+        const day = now.getDay();
+        const mins = now.getHours() * 60 + now.getMinutes();
+        const serving = ![0, 3].includes(day);
+        const open = serving && mins >= 17 * 60 + 30 && mins < 23 * 60;
+        el.setAttribute("data-open", open ? "ja" : "nee");
+        txt.textContent = open ? "Nu geopend" : serving && mins < 17 * 60 + 30 ? "Vanavond open vanaf 18:00" : day === 3 ? "Vandaag gesloten (woensdag)" : day === 0 ? "Vandaag gesloten (zondag)" : "Nu gesloten";
+        document.querySelectorAll<HTMLElement>("[data-day]").forEach((li) => li.classList.toggle("is-today", Number(li.dataset.day) === day));
+      }
+
+      function setupPage() {
+        onScroll();
+        document.querySelectorAll<HTMLButtonElement>("[data-nav-toggle]").forEach((b) => b.addEventListener("click", () => toggleNav()));
+        document.querySelectorAll<HTMLAnchorElement>("[data-navsheet] a").forEach((a) => a.addEventListener("click", () => toggleNav(false)));
+        document.querySelectorAll<HTMLButtonElement>("[data-reserve-open]").forEach((b) => b.addEventListener("click", openReserve));
+        document.querySelectorAll<HTMLElement>("[data-reserve-close]").forEach((b) => b.addEventListener("click", closeReserve));
+        openStatus();
+        setupAnims();
+        runLoader(playHero);
+        ScrollTrigger.refresh();
+      }
+
+      document.addEventListener("astro:page-load", setupPage);
+    </script>
+  </body>
+</html>

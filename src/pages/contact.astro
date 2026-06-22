@@ -1,0 +1,94 @@
+---
+import Base from "../layouts/Base.astro";
+import Icon from "../components/Icon.astro";
+import { site, hours } from "../data/site";
+
+// JS-dagindex (0 = zondag) per rij, voor het markeren van 'vandaag'
+const jsDay = (i: number) => (i + 1) % 7;
+const mapEmbed = "https://www.google.com/maps?q=Kinderdijk+84,+4331+HH+Middelburg&output=embed";
+---
+
+<Base title="Contact & openingstijden | Het Packhuys" description="Het Packhuys, Kinderdijk 84 in Middelburg. Openingstijden, route en reserveren. Geopend voor diner vanaf 18:00 uur.">
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true"><img src="/photos/haven-boten.jpg" alt="" /></div>
+    <div class="page-hero__inner container">
+      <p class="crumbs"><a href="/" class="link-underline">Home</a> &nbsp;/&nbsp; Contact</p>
+      <h1>Contact &amp; openingstijden</h1>
+      <p>U vindt ons aan de Kinderdijk, aan de jachthaven van Middelburg. Geopend voor diner, woensdag en zondag gesloten.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid gap-10 lg:grid-cols-2 items-stretch">
+      <!-- Gegevens -->
+      <div data-reveal>
+        <p class="eyebrow">Bezoek ons</p>
+        <h2 class="sec-title mt-3">Aan de haven</h2>
+
+        <div class="mt-7 grid gap-3">
+          <a href={site.maps} target="_blank" rel="noopener" class="rc-channel">
+            <span class="rc-channel__ic"><Icon name="pin" size={18} /></span>
+            <span class="flex-1">
+              <span class="rc-channel__t block">{site.address.street}</span>
+              <span class="rc-channel__s">{site.address.zip} {site.address.city}</span>
+            </span>
+            <Icon name="arrowUpRight" size={18} class="text-[color:var(--color-ink-55)]" />
+          </a>
+          <a href={site.phoneHref} class="rc-channel">
+            <span class="rc-channel__ic"><Icon name="phone" size={18} /></span>
+            <span class="flex-1">
+              <span class="rc-channel__t block">Bel ons</span>
+              <span class="rc-channel__s">{site.phone}</span>
+            </span>
+          </a>
+          <a href={`mailto:${site.email}`} class="rc-channel">
+            <span class="rc-channel__ic"><Icon name="mail" size={18} /></span>
+            <span class="flex-1">
+              <span class="rc-channel__t block">Mail ons</span>
+              <span class="rc-channel__s">{site.email}</span>
+            </span>
+          </a>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button type="button" class="btn btn-primary" data-reserve-open>Reserveren<Icon name="arrow" size={14} stroke={2} /></button>
+          <a href={site.zenchef.shop} target="_blank" rel="noopener" class="btn btn-ghost"><Icon name="gift" size={15} /> Cadeaubon</a>
+        </div>
+      </div>
+
+      <!-- Openingstijden -->
+      <div data-reveal style="--reveal-delay: 100ms">
+        <div class="surface-ink rounded-[12px] p-7 md:p-9 h-full flex flex-col">
+          <p class="eyebrow eyebrow--light">Openingstijden</p>
+          <ul class="hours surface-deep mt-4 flex-1">
+            {hours.map((h, i) => (
+              <li data-day={jsDay(i)}>
+                <span class="day">{h.day}</span>
+                {h.open ? <span>{h.open} tot {h.close}</span> : <span class="closed">Gesloten</span>}
+              </li>
+            ))}
+          </ul>
+          <div class="open-status mt-5 text-[rgba(244,238,226,0.82)]" data-open-status>
+            <span class="open-status__dot"></span>
+            <span data-open-status-text>Openingstijden</span>
+          </div>
+          <p class="text-[0.82rem] text-[rgba(244,238,226,0.6)] mt-4 leading-relaxed">
+            Onze keuken opent om 18:00 uur. Het restaurant is uiteraard langer geopend dan de aanvangstijden, neem voor een latere aankomst gerust contact op.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kaart -->
+  <section class="section-sm pt-0">
+    <div class="container">
+      <div class="map-frame" data-reveal>
+        <iframe src={mapEmbed} title="Kaart met de locatie van Het Packhuys aan de Kinderdijk in Middelburg" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <p class="text-[0.82rem] text-[color:var(--color-ink-55)] mt-4 max-w-[70ch] leading-relaxed">
+        In de directe omgeving kunt u parkeren op de aangrenzende parkeerterreinen aan de haven. Komt u met een groep of heeft u vragen over de route? We helpen u graag.
+      </p>
+    </div>
+  </section>
+</Base>
