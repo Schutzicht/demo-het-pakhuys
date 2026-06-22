@@ -19,7 +19,7 @@ const mapEmbed = "https://www.google.com/maps?q=Kinderdijk+84,+4331+HH+Middelbur
   </section>
 
   <section class="section">
-    <div class="container grid gap-10 lg:grid-cols-2 items-stretch">
+    <div class="container grid gap-10 lg:grid-cols-2 items-start">
       <!-- Gegevens -->
       <div data-reveal>
         <p class="eyebrow">Bezoek ons</p>
@@ -58,21 +58,21 @@ const mapEmbed = "https://www.google.com/maps?q=Kinderdijk+84,+4331+HH+Middelbur
 
       <!-- Openingstijden -->
       <div data-reveal style="--reveal-delay: 100ms">
-        <div class="surface-ink rounded-[12px] p-7 md:p-9 h-full flex flex-col">
+        <div class="surface-1 rounded-[14px] border border-[color:var(--color-stroke)] p-7 md:p-9">
           <p class="eyebrow eyebrow--light">Openingstijden</p>
-          <ul class="hours surface-deep mt-4 flex-1">
+          <ul class="hours mt-5">
             {hours.map((h, i) => (
               <li data-day={jsDay(i)}>
                 <span class="day">{h.day}</span>
-                {h.open ? <span>{h.open} tot {h.close}</span> : <span class="closed">Gesloten</span>}
+                {h.open ? <span class="time">{h.open} tot {h.close}</span> : <span class="closed">Gesloten</span>}
               </li>
             ))}
           </ul>
-          <div class="open-status mt-5 text-[rgba(244,238,226,0.82)]" data-open-status>
+          <div class="open-status mt-6" data-open-status>
             <span class="open-status__dot"></span>
             <span data-open-status-text>Openingstijden</span>
           </div>
-          <p class="text-[0.82rem] text-[rgba(244,238,226,0.6)] mt-4 leading-relaxed">
+          <p class="text-[0.82rem] text-[color:var(--color-muted)] mt-4 leading-relaxed">
             Onze keuken opent om 18:00 uur. Het restaurant is uiteraard langer geopend dan de aanvangstijden, neem voor een latere aankomst gerust contact op.
           </p>
         </div>
