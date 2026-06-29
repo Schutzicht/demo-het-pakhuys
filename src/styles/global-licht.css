@@ -482,6 +482,13 @@ body.loading-active .fab, body.nav-open .fab { opacity: 0; pointer-events: none;
 .tag--vis { color: #355d8a; background: rgba(63,109,160,0.12); }
 .tag--vega { color: #4d6b34; background: rgba(108,150,80,0.16); }
 .eyebrow--light { color: var(--color-ink-70); } /* was hardcoded near-wit; nu donker op licht, licht op donkere secties */
+
+/* ── Lichtere hero (alleen lichte variant): lichte wash + donkere tekst ── */
+.hero { --color-text: #16191d; --color-muted: rgba(22,25,29,0.7); --color-bg: #f5f6f8; --color-accent-a: #3f6da0; --color-accent-b: #2f567f; color: var(--color-text); }
+.hero__veil { background: linear-gradient(to top, rgba(245,246,248,0.97) 0%, rgba(245,246,248,0.9) 34%, rgba(245,246,248,0.78) 60%, rgba(245,246,248,0.46) 84%, rgba(245,246,248,0.22) 100%); }
+.hero__role { color: rgba(22,25,29,0.84); }
+.hero__desc { color: rgba(22,25,29,0.76); }
+.hero .eyebrow { color: rgba(22,25,29,0.62); }
 .rc-channel__ic { background: rgba(0,0,0,0.05); }
 .marquee__row span { color: rgba(22,25,29,0.10); }
 .loader__word { color: rgba(22,25,29,0.82); }
