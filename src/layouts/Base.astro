@@ -20,7 +20,7 @@ const {
   ogImage = "/photos/pand-buiten.jpg",
   loader = false,
 } = Astro.props;
-const siteUrl = Astro.site ?? "https://demo-het-packhuys.vercel.app";
+const siteUrl = Astro.site ?? "https://demo-het-pakhuys.vercel.app";
 const canonical = new URL(Astro.url.pathname, siteUrl).href;
 const ogImageAbs = new URL(ogImage, siteUrl).href;
 const words = ["Proeven", "Beleven", "Genieten"];
