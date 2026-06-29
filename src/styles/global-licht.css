@@ -311,6 +311,9 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; line-height: 1.
 .foot__social { display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; border: 1px solid rgba(244,239,231,.18); border-radius: 999px; transition: border-color 0.2s ease, background-color 0.2s ease; }
 .foot__social:hover { border-color: var(--color-accent); background: rgba(168,124,69,.16); }
 .foot__dot { width: 8px; height: 8px; border-radius: 999px; background: #5a8a4a; }
+.foot h2, .foot h3 { color: #fbf8f3; }
+.foot .btn-outline { color: #fff; border-color: rgba(255,255,255,.5); }
+@media (hover: hover) and (pointer: fine) { .foot .btn-outline:hover { background: rgba(255,255,255,.12); border-color: #fff; } }
 
 /* ── Floating reserve FAB ─────────────────────────────────── */
 .fab { position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 55; display: inline-flex; align-items: center; gap: 0.5rem; background: var(--color-ink); color: var(--color-bone); padding: 0.8rem 1.3rem; border-radius: 999px; font-size: 0.9rem; border: 0; cursor: pointer; box-shadow: var(--shadow-lg); transition: transform 0.2s var(--ease-out), background-color 0.25s ease, opacity 0.3s ease; }
@@ -361,6 +364,96 @@ body.loading-active .fab, body.nav-open .fab { opacity: 0; pointer-events: none;
 @media (max-width: 880px) {
   .hero__title { font-size: clamp(2.8rem, 12vw, 4.5rem); }
 }
+
+/* ============================================================
+   CONTRAST-FIXES + COMPONENT-LAAG (multipage lichte variant)
+   - muted iets donkerder zodat secundaire tekst op bone AA haalt
+   - formulier-labels van stone -> muted (stone was te licht)
+   - donkere banden met gegarandeerd lichte tekst
+   ============================================================ */
+:root { --color-muted: #64655b; } /* was #737469 (~4.2:1 op bone) -> ~5.2:1 */
+.config__qlabel { color: var(--color-muted); } /* was --color-stone (~2.5:1) */
+
+/* Donkere band (sustainability, alcoholvrij, stats, eind-CTA) */
+.band-dark { background: var(--color-ink); color: rgba(244,239,231,.84); border-radius: var(--r); overflow: hidden; }
+.band-dark h1, .band-dark h2, .band-dark h3, .band-dark .sec-title, .band-dark .statement { color: #fbf8f3; }
+.band-dark p, .band-dark .lede { color: rgba(244,239,231,.84); }
+.band-dark .eyebrow { color: #e8d6b6; }
+.band-dark .eyebrow::before { background: #e8d6b6; }
+.band-dark .accent { color: #f0e2c9; }
+.band-dark .link-line { color: #e8d6b6; }
+.band-dark .btn-ghost { color: #fbf8f3; }
+.band-dark .btn-outline { color: #fff; border-color: rgba(255,255,255,.5); }
+@media (hover: hover) and (pointer: fine) {
+  .band-dark .btn-outline:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+}
+
+/* Stats-rij (licht: messing cijfers op bone; in .band-dark: cream op inkt) */
+.stats { display: grid; gap: 1.6rem 2.4rem; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 760px) { .stats { grid-template-columns: repeat(4, 1fr); } .stats--3 { grid-template-columns: repeat(3, 1fr); } }
+.stat__n { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.9rem, 3.4vw, 2.7rem); line-height: 1; color: var(--color-accent-deep); }
+.stat__l { font-size: 0.88rem; color: var(--color-muted); margin-top: 0.45rem; max-width: 22ch; line-height: 1.45; }
+.band-dark .stat__n { color: #f0e2c9; }
+.band-dark .stat__l { color: rgba(244,239,231,.74); }
+
+/* Prijskaarten (menukaart) */
+.menu-cards { display: grid; gap: 1rem; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 920px) { .menu-cards { grid-template-columns: repeat(4, 1fr); } }
+.menu-card { position: relative; background: var(--color-paper); border: 1px solid var(--color-line); border-radius: var(--r); padding: 1.8rem 1.4rem 1.6rem; text-align: center; box-shadow: var(--shadow); }
+.menu-card--featured { border-color: var(--color-accent); box-shadow: 0 16px 44px -20px rgba(168,124,69,.55); }
+.menu-card__badge { position: absolute; top: -0.7rem; left: 50%; transform: translateX(-50%); background: var(--color-accent); color: #fff; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 999px; white-space: nowrap; }
+.menu-card__n { font-family: var(--font-display); font-weight: 300; font-size: 2.7rem; line-height: 1; color: var(--color-ink); }
+.menu-card__label { font-size: 0.74rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.14em; margin-top: 0.25rem; }
+.menu-card__price { font-family: var(--font-display); font-size: 1.6rem; color: var(--color-ink); margin-top: 1rem; }
+.menu-card__wine { font-size: 0.84rem; color: var(--color-muted); margin-top: 0.55rem; display: inline-flex; align-items: center; gap: 0.35rem; }
+.menu-card__wine svg { color: var(--color-accent-deep); flex-shrink: 0; }
+
+/* Generieke lichte kaart (occasions, info) */
+.card { background: var(--color-paper); border: 1px solid var(--color-line); border-radius: var(--r); padding: clamp(1.5rem, 2.6vw, 2rem); box-shadow: var(--shadow); }
+.card__ic { display: grid; place-items: center; width: 2.9rem; height: 2.9rem; border-radius: 12px; background: var(--color-bone-2); color: var(--color-accent-deep); margin-bottom: 1.1rem; }
+.card__t { font-family: var(--font-display); font-size: 1.3rem; color: var(--color-ink); }
+.card p { color: var(--color-muted); margin-top: 0.5rem; line-height: 1.55; font-size: 0.95rem; }
+
+/* Notitie-box (vega-noot, parkeren) */
+.note { display: flex; gap: 0.85rem; background: var(--color-bone-2); border: 1px solid var(--color-line-soft); border-radius: 12px; padding: 1.1rem 1.25rem; }
+.note__ic { color: var(--color-accent-deep); flex-shrink: 0; margin-top: 0.1rem; }
+.note p { font-size: 0.9rem; color: var(--color-ink-soft); line-height: 1.55; }
+
+/* Wijnlijst per categorie */
+.wine-cat + .wine-cat { margin-top: 2.2rem; }
+.wine-cat__title { font-family: var(--font-display); font-size: 1.4rem; color: var(--color-ink); padding-bottom: 0.6rem; border-bottom: 1px solid var(--color-line); margin-bottom: 0.3rem; }
+.wine-row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-line-soft); }
+.wine-row:last-child { border-bottom: 0; }
+.wine-row__name { color: var(--color-ink); font-weight: 500; font-size: 0.98rem; }
+.wine-row__region { color: var(--color-muted); font-size: 0.82rem; margin-top: 0.12rem; }
+.wine-row__price { font-family: var(--font-display); color: var(--color-accent-deep); font-size: 1.05rem; white-space: nowrap; }
+
+/* Stappen (zo werkt het) */
+.steps { display: grid; gap: 1.6rem; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .steps { grid-template-columns: repeat(3, 1fr); } }
+.step__n { font-family: var(--font-display); font-weight: 300; font-size: 2.3rem; color: var(--color-accent); line-height: 1; }
+.step__t { font-family: var(--font-display); font-size: 1.25rem; color: var(--color-ink); margin-top: 0.55rem; }
+.step__d { color: var(--color-muted); margin-top: 0.45rem; line-height: 1.55; font-size: 0.95rem; }
+
+/* Citaatblok */
+.quote-block { font-family: var(--font-display); font-weight: 300; font-size: clamp(1.6rem, 3.6vw, 2.6rem); line-height: 1.32; color: var(--color-ink); }
+.quote-block .accent { color: var(--color-accent); }
+.quote-mark { color: var(--color-accent); }
+
+/* Checklist */
+.checklist { display: grid; gap: 0.15rem; }
+.checklist li { display: flex; gap: 0.7rem; align-items: flex-start; padding: 0.5rem 0; color: var(--color-ink-soft); }
+.checklist li svg { color: var(--color-accent-deep); flex-shrink: 0; margin-top: 0.18rem; }
+
+/* Contrast-fixes na audit: wit-op-messing haalt op klein formaat geen AA -> accent-deep; tag-tekst donkerder */
+:root { --color-accent-deep: #7c5a2d; } /* was #8a6433 (~4.25:1 op bone-2) -> ~5:1, AA voor eyebrows/prijzen/links */
+:root { --color-accent: #9c7039; } /* was #a87c45 (~2.98:1 op bone-2 voor grote accenten) -> ~3.5:1 */
+.hero__title, .cinema__title { color: #fff; } /* h1/h2-regel zette deze op ink -> onzichtbaar op de donkere veil */
+.btn-accent { background: var(--color-accent-deep); }
+.menu-card__badge { background: var(--color-accent-deep); }
+.tag--vega { color: #4e5d2c; }
+.tag--zoet { color: #79495a; }
+@media (hover: hover) and (pointer: fine) { .btn-accent:hover { background: #6e4f2a; } }
 
 /* ── Reduced motion (§9) ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {

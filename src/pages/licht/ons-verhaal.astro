@@ -1,0 +1,132 @@
+---
+import Base from "../../layouts/BaseLicht.astro";
+import Icon from "../../components/Icon.astro";
+import { stats } from "../../data/site";
+---
+
+<Base
+  title="Ons verhaal | Het Packhuys"
+  description="Over een V.O.C.-pakhuis dat de eeuwen trotseerde, een homarium vol leven en een keuken die alles van eigen hand maakt."
+  ogImage="/photos/pand-buiten.jpg"
+>
+  <!-- 1. Page hero -->
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true"><img src="/photos/pand-buiten.jpg" alt="" /></div>
+    <div class="page-hero__inner container">
+      <p class="crumbs"><a href="/licht">Home</a> / Ons verhaal</p>
+      <h1 class="mt-3">Ons verhaal</h1>
+      <p class="mt-3 max-w-[60ch]">Over een pakhuis dat de eeuwen trotseerde, een aquarium vol leven en een keuken die niets aan het toeval overlaat.</p>
+    </div>
+  </section>
+
+  <!-- 2. Het pand -->
+  <section class="section">
+    <div class="container split split--wide-text" data-anim="up">
+      <div>
+        <p class="eyebrow">Het pand</p>
+        <h2 class="sec-title mt-4">Gebouwd voor de handel, gemaakt voor het diner</h2>
+        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[54ch]">
+          Aan de Kinderdijk staat een pakhuis uit de tijd dat Middelburg een handelsstad van formaat was. Waar koopwaar werd gelost en opgeslagen, schuift u nu aan onder de originele houten balken. De dikke muren en het kraakheldere licht van het water geven de zaal een rust die je nergens namaakt.
+        </p>
+      </div>
+      <div class="grid gap-3">
+        <div class="frame frame--wide frame-hover"><img src="/photos/interieur-kast.jpg" alt="Wijnkast onder de houten balken" loading="lazy" /></div>
+        <div class="frame frame--wide frame-hover"><img src="/photos/interieur-hoek.jpg" alt="Een hoek van de eetzaal in het pakhuis" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Citaat -->
+  <section class="section-sm">
+    <div class="container-narrow text-center" data-anim="up">
+      <span class="quote-mark inline-flex"><Icon name="quote" size={34} /></span>
+      <p class="quote-block mt-4">Het mooiste recept is een <span class="accent">product</span> dat geen uitleg nodig heeft.</p>
+    </div>
+  </section>
+
+  <!-- 4. Het homarium -->
+  <section class="section surface-bone2">
+    <div class="container split split--wide-img" data-anim="up">
+      <div class="frame frame--square frame-hover">
+        <img src="/photos/generated/homarium.jpg" alt="Het homarium met gekoeld Oosterscheldewater" loading="lazy" />
+      </div>
+      <div>
+        <p class="eyebrow">Het homarium</p>
+        <h2 class="sec-title mt-4">Levend water in de zaak</h2>
+        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+          Midden in het restaurant houdt ons homarium oesters, langoustines en kreeft levend in gekoeld Oosterscheldewater. Dat is geen decor. Het betekent dat een schaaldier pas de keuken in gaat op het moment dat u erom vraagt, zonder tussenstop, zonder dagen op ijs.
+        </p>
+        <p class="mt-4 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+          Versheid die je proeft, en die de chef de vrijheid geeft om puur te koken. Een scheut citroen, wat zee-kruid, en verder vooral niet te veel.
+        </p>
+        <a href="/licht/menukaart" class="link-line mt-7">Bekijk de gerechten <Icon name="arrow" size={15} stroke={1.8} /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. De haven -->
+  <section class="section">
+    <div class="container split split--wide-text" data-anim="up">
+      <div>
+        <p class="eyebrow">De haven</p>
+        <h2 class="sec-title mt-4">Met de masten binnen handbereik</h2>
+        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[54ch]">
+          Vanaf uw tafel kijkt u zo de jachthaven in. In de zomer schuift het terras naar buiten en eet u tussen het zachte getik van de tuigage en het licht dat van het water terugkaatst. Het is Middelburg op zijn mooist, en het hoort net zo bij de avond als wat er op uw bord ligt.
+        </p>
+      </div>
+      <div class="frame frame--wide frame-hover">
+        <img src="/photos/haven-masten.jpg" alt="Masten in de jachthaven van Middelburg" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Stats (donkere band) -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="band-dark p-[clamp(2rem,5vw,3.5rem)]" data-anim="up">
+        <div class="stats">
+          {stats.map((s) => (
+            <div>
+              <div class="stat__n">{s.n}</div>
+              <div class="stat__l">{s.l}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Van eigen hand -->
+  <section class="section">
+    <div class="container split split--wide-img" data-anim="up">
+      <div class="frame frame--tall frame-hover">
+        <img src="/photos/service-borden.jpg" alt="Borden worden klaargezet in de bediening" loading="lazy" />
+      </div>
+      <div>
+        <p class="eyebrow">Van eigen hand</p>
+        <h2 class="sec-title mt-4">Alles begint in onze eigen keuken</h2>
+        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+          Brood, fonds, boter, zoetigheid: het komt hier vandaan, niet uit een doos. We werken met leveranciers uit de streek die we bij naam kennen en kopen in wat op dat moment het beste is. Daarom staat er geen vaste kaart, maar een menu dat met de weken meebeweegt.
+        </p>
+        <p class="mt-4 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+          In de zaal werkt een klein, betrokken team dat precies aanvoelt wanneer het tijd is voor de volgende gang. Geen haast, geen wachten, gewoon een avond die klopt.
+        </p>
+        <a href="/licht/contact" class="link-line mt-7">Plan uw bezoek <Icon name="arrow" size={15} stroke={1.8} /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Eind-CTA (donkere band) -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="band-dark text-center p-[clamp(2.5rem,6vw,4.5rem)]" data-anim="up">
+        <h2 class="sec-title">Kom het zelf proeven</h2>
+        <p class="lede mt-4 max-w-[46ch] mx-auto">Reserveer een tafel en laat u meenemen langs het seizoen.</p>
+        <div class="flex flex-wrap gap-3 justify-center mt-7">
+          <button type="button" class="btn btn-accent" data-reserve-open>Reserveren <Icon name="arrow" size={14} stroke={1.8} /></button>
+          <a href="/licht/menukaart" class="btn btn-ghost">Naar de menukaart</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -2,17 +2,35 @@
 import { site } from "../data/site";
 import Icon from "./Icon.astro";
 const year = new Date().getFullYear();
-const links = [
-  { href: "#verhaal", label: "Ons verhaal" },
-  { href: "#menu", label: "Menukaart" },
-  { href: "#wijnen", label: "Wijnen" },
-  { href: "#gezelschappen", label: "Gezelschappen" },
-  { href: "#contact", label: "Contact" },
-];
 const email = "info@hetpackhuys.nl";
+const links = [
+  { href: "/licht/menukaart", label: "Menukaart" },
+  { href: "/licht/wijnen", label: "Wijnen" },
+  { href: "/licht/ons-verhaal", label: "Ons verhaal" },
+  { href: "/licht/gezelschappen", label: "Gezelschappen" },
+  { href: "/licht/contact", label: "Contact" },
+];
 ---
 
 <footer class="foot">
+  <!-- CTA-band -->
+  <div class="border-b border-[rgba(244,239,231,.14)]">
+    <div class="container py-14 md:py-16 flex flex-col md:flex-row md:items-end md:justify-between gap-7">
+      <div>
+        <p class="eyebrow eyebrow--light">Tot ziens aan de Kinderdijk</p>
+        <h2 class="font-display text-[clamp(2rem,4vw,3rem)] mt-3 leading-[1.05]">Reserveer uw tafel</h2>
+        <p class="text-sm mt-3 max-w-[46ch] text-[rgba(244,239,231,.72)] leading-relaxed">
+          Geopend voor diner van 18:00 uur. Woensdag en zondag gesloten.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button type="button" class="btn btn-light" data-reserve-open>Reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} /></button>
+        <a href={site.phoneHref} class="btn btn-outline"><Icon name="phone" size={15} stroke={1.8} /> Bel ons</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kolommen -->
   <div class="container py-16 md:py-20 grid gap-10 md:grid-cols-[1.6fr_1fr_1.1fr_1fr]">
     <div>
       <div class="foot__brand">Het Packhuys</div>
@@ -38,6 +56,7 @@ const email = "info@hetpackhuys.nl";
         Kinderdijk 84<br />4331 HH Middelburg
       </address>
       <ul class="space-y-1.5 text-sm mt-3">
+        <li><a href={site.maps} target="_blank" rel="noopener">Route &amp; parkeren</a></li>
         <li><a href={site.phoneHref}>{site.phone}</a></li>
         <li><a href={`mailto:${email}`}>{email}</a></li>
       </ul>
@@ -54,7 +73,7 @@ const email = "info@hetpackhuys.nl";
   </div>
 
   <div class="border-t border-[rgba(244,239,231,.14)]">
-    <div class="container py-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-[rgba(244,239,231,.5)]">
+    <div class="container py-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-[rgba(244,239,231,.64)]">
       <div>&copy; {year} Het Packhuys &middot; Middelburg</div>
       <div>Ontwerp &amp; realisatie &middot; <a href="https://agensea.nl" target="_blank" rel="noopener" class="underline-offset-2 hover:underline">Agensea</a></div>
     </div>

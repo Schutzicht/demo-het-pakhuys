@@ -1,0 +1,107 @@
+---
+import Base from "../../layouts/BaseLicht.astro";
+import Icon from "../../components/Icon.astro";
+import { site } from "../../data/site";
+const email = "info@hetpackhuys.nl";
+
+const occasions = [
+  { icon: "sparkle", title: "Familie & feest", body: "Een verjaardag, jubileum of gewoon omdat het kan. Wij verzorgen een menu dat past bij de gelegenheid." },
+  { icon: "users", title: "Zakelijk diner", body: "Indruk maken op relaties of het team bedanken, in een zaal die vanzelf het gesprek op gang brengt." },
+  { icon: "wine", title: "Besloten dineren", body: "Voor groepen kunnen we een deel van het pakhuis besloten reserveren, met een eigen ritme en aandacht." },
+];
+const checklist = [
+  "Vast seizoensmenu, samen gekozen",
+  "Bijpassend wijn- of alcoholvrij arrangement",
+  "Rekening met allergieën en dieetwensen",
+  "Een deel van het pakhuis besloten mogelijk",
+];
+const steps = [
+  { n: "01", t: "Neem contact op", d: "Bel of mail ons met de datum, het aantal personen en wat u in gedachten heeft." },
+  { n: "02", t: "Samen het menu", d: "We stemmen een vast menu af op het seizoen, uw wensen en eventuele dieetwensen." },
+  { n: "03", t: "U wordt ontvangen", d: "Op de avond zelf hoeft u nergens meer aan te denken. Wij zorgen voor de rest." },
+];
+---
+
+<Base
+  title="Gezelschappen | Het Packhuys"
+  description="Iets te vieren met een groep? Vanaf acht personen stellen we een maatwerkmenu samen in het pakhuis aan de haven, tot 50 gasten binnen."
+  ogImage="/photos/gasten-diner.jpg"
+>
+  <!-- 1. Page hero -->
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true"><img src="/photos/gasten-diner.jpg" alt="" /></div>
+    <div class="page-hero__inner container">
+      <p class="crumbs"><a href="/licht">Home</a> / Gezelschappen</p>
+      <h1 class="mt-3">Gezelschappen</h1>
+      <p class="mt-3 max-w-[60ch]">Iets te vieren met een groep? Het pakhuis aan de haven is er bij uitstek geschikt voor. Vanaf acht personen denken we graag met u mee.</p>
+    </div>
+  </section>
+
+  <!-- 2. Gelegenheden -->
+  <section class="section">
+    <div class="container">
+      <div class="grid gap-5 md:grid-cols-3" data-stagger>
+        {occasions.map((o) => (
+          <div class="card" data-anim="up">
+            <span class="card__ic"><Icon name={o.icon} size={22} /></span>
+            <h3 class="card__t">{o.title}</h3>
+            <p>{o.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Op maat -->
+  <section class="section-sm">
+    <div class="container split split--wide-img" data-anim="up">
+      <div class="frame frame--wide frame-hover">
+        <img src="/photos/interieur-tafels.jpg" alt="Gedekte tafels voor een gezelschap" loading="lazy" />
+      </div>
+      <div>
+        <p class="eyebrow">Op maat</p>
+        <h2 class="sec-title mt-4">Een avond zonder zorgen</h2>
+        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+          Voor een groep werken we met een vast menu, zodat de keuken alle aandacht aan het bord kan geven en u aan elkaar. We stemmen vooraf het aantal gangen, de wijnen en het tijdstip af, en houden rekening met dieetwensen aan tafel.
+        </p>
+        <ul class="checklist mt-6">
+          {checklist.map((c) => (
+            <li><Icon name="check" size={18} /> <span>{c}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Zo werkt het -->
+  <section class="section surface-bone2">
+    <div class="container">
+      <div class="max-w-[52ch] mb-9" data-anim="up">
+        <p class="eyebrow">Zo werkt het</p>
+        <h2 class="sec-title mt-4">In drie stappen geregeld</h2>
+      </div>
+      <div class="steps" data-stagger>
+        {steps.map((s) => (
+          <div data-anim="up">
+            <div class="step__n">{s.n}</div>
+            <div class="step__t">{s.t}</div>
+            <p class="step__d">{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Contact-CTA -->
+  <section class="section-sm">
+    <div class="container-narrow text-center" data-anim="up">
+      <p class="eyebrow eyebrow--center justify-center">Iets te vieren?</p>
+      <h2 class="sec-title mt-4">Laten we het samen invullen</h2>
+      <p class="lede mt-4 max-w-[50ch] mx-auto">Vertel ons over de gelegenheid, dan denken we mee over de mooiste manier om het te vieren.</p>
+      <div class="flex flex-wrap gap-3 justify-center mt-7">
+        <a href={site.phoneHref} class="btn btn-solid"><Icon name="phone" size={15} stroke={1.8} /> Bel ons</a>
+        <a href={`mailto:${email}`} class="btn btn-ghost"><Icon name="mail" size={15} stroke={1.8} /> Mail ons</a>
+      </div>
+    </div>
+  </section>
+</Base>

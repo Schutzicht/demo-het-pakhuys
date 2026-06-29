@@ -1,13 +1,16 @@
 ---
 import Icon from "./Icon.astro";
-// Lichte one-pager: nav verwijst naar secties op de home.
+// Lichte multipage: zelfde paginastructuur als de donkere demo, /licht/-prefix.
 const links = [
-  { href: "#verhaal", label: "Ons verhaal" },
-  { href: "#menu", label: "Menukaart" },
-  { href: "#wijnen", label: "Wijnen" },
-  { href: "#gezelschappen", label: "Gezelschappen" },
-  { href: "#contact", label: "Contact" },
+  { href: "/licht/menukaart", label: "Menukaart" },
+  { href: "/licht/wijnen", label: "Wijnen" },
+  { href: "/licht/ons-verhaal", label: "Ons verhaal" },
+  { href: "/licht/gezelschappen", label: "Gezelschappen" },
+  { href: "/licht/contact", label: "Contact" },
 ];
+const sheetLinks = [{ href: "/licht", label: "Home" }, ...links];
+const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isCurrent = (href: string) => path === href.replace(/\/+$/, "");
 ---
 
 <nav class="nav" data-nav aria-label="Hoofdmenu">
@@ -18,7 +21,7 @@ const links = [
     </a>
     <span class="nav__divider"></span>
     <div class="nav__links inline-flex items-center">
-      {links.map((l) => <a href={l.href} class="nav__link">{l.label}</a>)}
+      {links.map((l) => <a href={l.href} class="nav__link" aria-current={isCurrent(l.href) ? "page" : undefined}>{l.label}</a>)}
     </div>
     <span class="nav__divider"></span>
     <button type="button" class="nav__cta" data-reserve-open>
@@ -35,8 +38,8 @@ const links = [
   <button type="button" class="absolute top-6 right-6 nav__toggle" data-nav-toggle aria-label="Sluit menu">
     <Icon name="close" size={22} stroke={1.8} />
   </button>
-  {links.map((l, i) => (
-    <a href={l.href}>{l.label}<span>{String(i + 1).padStart(2, "0")}</span></a>
+  {sheetLinks.map((l, i) => (
+    <a href={l.href} aria-current={isCurrent(l.href) ? "page" : undefined}>{l.label}<span>{String(i).padStart(2, "0")}</span></a>
   ))}
   <button type="button" class="btn btn-solid mt-10 self-start" data-reserve-open>
     Reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} />

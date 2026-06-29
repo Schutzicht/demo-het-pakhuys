@@ -1,0 +1,117 @@
+---
+import Base from "../../layouts/BaseLicht.astro";
+import Icon from "../../components/Icon.astro";
+import { site, menus, dishes } from "../../data/site";
+
+const tagFor = (d: any) =>
+  d.name.includes("Aardbei") ? "zoet"
+  : d.tags.includes("Vis") || d.tags.includes("Uit het homarium") ? "zee"
+  : d.vega ? "vega" : "land";
+const tagLabel: Record<string, string> = { zee: "Zee", land: "Land", vega: "Vega", zoet: "Zoet" };
+---
+
+<Base
+  title="Menukaart | Het Packhuys"
+  description="Eén tasting menu van 4 tot 7 gangen, opgebouwd rond het seizoen en de Zeeuwse delta. Met optioneel wijnarrangement."
+  ogImage="/photos/chef-plating.jpg"
+>
+  <!-- 1. Page hero -->
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true"><img src="/photos/chef-plating.jpg" alt="" /></div>
+    <div class="page-hero__inner container">
+      <p class="crumbs"><a href="/licht">Home</a> / Menukaart</p>
+      <h1 class="mt-3">De menukaart</h1>
+      <p class="mt-3 max-w-[60ch]">Eén tasting menu, opgebouwd rond wat het seizoen en de Zeeuwse delta op dat moment te bieden hebben. U kiest het aantal gangen, de keuken verrast u.</p>
+    </div>
+  </section>
+
+  <!-- 2. Prijskaarten -->
+  <section class="section">
+    <div class="container">
+      <div class="menu-cards" data-anim="up">
+        {menus.map((m) => (
+          <div class:list={["menu-card", m.featured && "menu-card--featured"]}>
+            {m.featured && <span class="menu-card__badge">Favoriet</span>}
+            <div class="menu-card__n">{m.courses}</div>
+            <div class="menu-card__label">gangen</div>
+            <div class="menu-card__price">&euro;{m.price}</div>
+            <div class="menu-card__wine"><Icon name="wine" size={14} /> Wijnarrangement &euro;{m.wine}</div>
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-[color:var(--color-muted)] mt-6 max-w-[68ch] leading-relaxed" data-anim="up">
+        Het wijnarrangement is optioneel en per gang afgestemd door onze gastvrouw. Liever zelf kiezen? Bekijk de <a href="/licht/wijnen" class="link-line">wijnkaart</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3. Voorbeeldmenu + gerechten -->
+  <section class="section-sm">
+    <div class="container split split--wide-text" data-anim="up">
+      <div>
+        <p class="eyebrow">Voorbeeldmenu &middot; vroege zomer</p>
+        <h2 class="sec-title mt-4">Wat er deze weken op tafel komt</h2>
+        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+          Ter illustratie een menu zoals het er nu uit zou kunnen zien. De echte kaart wisselt wekelijks mee met de oogst, de vangst en het humeur van de chef.
+        </p>
+        <div class="note mt-6">
+          <span class="note__ic"><Icon name="leaf" size={18} /></span>
+          <p>Vegetarisch dineren kan, geef het bij uw reservering door. Heeft u een allergie of dieetwens? Laat het ons weten, dan houden we daar rekening mee. Een volledig veganistisch menu kunnen we helaas niet verzorgen.</p>
+        </div>
+      </div>
+      <div class="frame frame--tall frame-hover">
+        <img src="/photos/gerecht-haven.jpg" alt="Een verfijnd gerecht met uitzicht op de haven" loading="lazy" />
+      </div>
+    </div>
+
+    <div class="container mt-12">
+      <div class="menu-grid" data-anim="up">
+        {dishes.map((d) => {
+          const t = tagFor(d);
+          return (
+            <div class="dish">
+              <span class="block text-[0.66rem] uppercase tracking-[0.18em] text-[color:var(--color-accent-deep)] mb-1.5">{d.course}</span>
+              <div class="dish__head">
+                <span class="dish__name">{d.name}</span>
+                {d.tags.length > 0 && (
+                  <span class="dish__tags"><span class={`tag tag--${t}`}>{tagLabel[t]}</span></span>
+                )}
+              </div>
+              <p class="dish__desc">{d.desc}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Geen verspilling (donkere band) -->
+  <section class="section">
+    <div class="container">
+      <div class="band-dark p-[clamp(2rem,5vw,3.5rem)]" data-anim="up">
+        <div class="grid gap-7 md:grid-cols-[1.5fr_auto] md:items-end">
+          <div>
+            <p class="eyebrow eyebrow--light">Met respect voor het product</p>
+            <h2 class="sec-title mt-4">Geen verspilling, alles benut</h2>
+            <p class="mt-4 max-w-[58ch]">
+              In het kader van voedselverspilling serveren wij op vrijdag, zaterdag en zondag uitsluitend de menu's van 4, 5, 6 of 7 gangen. Zo koopt de keuken gericht in en verwerken we het product van kop tot staart.
+            </p>
+          </div>
+          <a href="/licht/wijnen" class="btn btn-accent shrink-0">Naar de wijnen <Icon name="arrow" size={14} stroke={1.8} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Reserveer-CTA -->
+  <section class="section-sm">
+    <div class="container-narrow text-center" data-anim="up">
+      <h2 class="sec-title">Aangenaam verrast worden?</h2>
+      <p class="lede mt-4 max-w-[48ch] mx-auto">Reserveer uw tafel en laat de keuken het seizoen voor u uitserveren.</p>
+      <div class="flex flex-wrap gap-3 justify-center mt-7">
+        <button type="button" class="btn btn-solid" data-reserve-open>Reserveren <Icon name="arrow" size={14} stroke={1.8} /></button>
+        <a href={site.phoneHref} class="btn btn-ghost"><Icon name="phone" size={15} stroke={1.8} /> Bel ons</a>
+      </div>
+    </div>
+  </section>
+</Base>

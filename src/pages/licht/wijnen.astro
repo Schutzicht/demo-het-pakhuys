@@ -1,0 +1,125 @@
+---
+import Base from "../../layouts/BaseLicht.astro";
+import Icon from "../../components/Icon.astro";
+import { menus } from "../../data/site";
+
+const wineList = [
+  {
+    cat: "Mousserend",
+    rows: [
+      { name: "Crémant de Loire, Brut", region: "Loire, Frankrijk", price: "€9 / €46" },
+      { name: "Champagne Brut Tradition", region: "Champagne, Frankrijk", price: "€14 / €78" },
+    ],
+  },
+  {
+    cat: "Wit",
+    rows: [
+      { name: "Muscadet Sèvre et Maine sur Lie", region: "Loire, Frankrijk", price: "€8 / €38" },
+      { name: "Chablis", region: "Bourgogne, Frankrijk", price: "€11 / €54" },
+      { name: "Sancerre", region: "Loire, Frankrijk", price: "€12 / €58" },
+      { name: "Riesling Trocken", region: "Pfalz, Duitsland", price: "€9 / €44" },
+    ],
+  },
+  {
+    cat: "Rood",
+    rows: [
+      { name: "Côtes du Rhône", region: "Rhône, Frankrijk", price: "€8 / €38" },
+      { name: "Bourgogne Pinot Noir", region: "Bourgogne, Frankrijk", price: "€12 / €60" },
+      { name: "Châteauneuf-du-Pape", region: "Rhône, Frankrijk", price: "€82 (fles)" },
+    ],
+  },
+  {
+    cat: "Zoet & dessert",
+    rows: [
+      { name: "Sauternes", region: "Bordeaux, Frankrijk", price: "€9 / €62" },
+      { name: "Port, Tawny 10 jaar", region: "Douro, Portugal", price: "€8 (glas)" },
+    ],
+  },
+];
+---
+
+<Base
+  title="Wijnen | Het Packhuys"
+  description="Een kelder die het menu volgt: per gang een afgestemd wijnarrangement, of zelf kiezen uit de kaart. Ook een alcoholvrij arrangement."
+  ogImage="/photos/wijn-inschenken.jpg"
+>
+  <!-- 1. Page hero -->
+  <section class="page-hero">
+    <div class="page-hero__media" aria-hidden="true"><img src="/photos/wijn-inschenken.jpg" alt="" /></div>
+    <div class="page-hero__inner container">
+      <p class="crumbs"><a href="/licht">Home</a> / Wijnen</p>
+      <h1 class="mt-3">Wijnen</h1>
+      <p class="mt-3 max-w-[60ch]">Een kelder die het menu volgt. Per gang schenken we een glas dat het gerecht een hand geeft, of u stelt zelf samen uit de kaart.</p>
+    </div>
+  </section>
+
+  <!-- 2. Wijnarrangement -->
+  <section class="section">
+    <div class="container split split--wide-img" data-anim="up">
+      <div class="frame frame--tall frame-hover">
+        <img src="/photos/bar-drinks.jpg" alt="Wijn en glazen aan de bar" loading="lazy" />
+        <span class="tag-pill">Wisselt mee per seizoen</span>
+      </div>
+      <div>
+        <p class="eyebrow">Het wijnarrangement</p>
+        <h2 class="sec-title mt-4">Per gang afgestemd</h2>
+        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+          Bij elk tasting menu kunt u kiezen voor een bijpassend wijnarrangement. Onze gastvrouw selecteert per gang een glas, van een frisse opener tot een wijn met body bij het hoofdgerecht. Niet zomaar een wijn erbij, maar een keuze die het gerecht laat oplichten.
+        </p>
+        <ul class="mt-6 max-w-[26rem]">
+          {menus.map((m) => (
+            <li class="flex items-center justify-between gap-4 py-2.5 border-b border-[color:var(--color-line-soft)] last:border-0">
+              <span class="flex items-center gap-2.5"><Icon name="wine" size={16} class="text-[color:var(--color-accent-deep)]" /> {m.courses} glazen, bij {m.courses} gangen</span>
+              <span class="font-display text-xl">&euro;{m.wine}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Wijnkaart per categorie -->
+  <section class="section surface-bone2">
+    <div class="container">
+      <div class="max-w-[58ch] mb-9" data-anim="up">
+        <p class="eyebrow">Per glas of per fles</p>
+        <h2 class="sec-title mt-4">Een greep uit de kaart</h2>
+      </div>
+      <div class="grid gap-10 md:grid-cols-2" data-stagger>
+        {wineList.map((c) => (
+          <div class="wine-cat" data-anim="up">
+            <h3 class="wine-cat__title">{c.cat}</h3>
+            {c.rows.map((w) => (
+              <div class="wine-row">
+                <div>
+                  <div class="wine-row__name">{w.name}</div>
+                  <div class="wine-row__region">{w.region}</div>
+                </div>
+                <div class="wine-row__price">{w.price}</div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <p class="text-sm text-[color:var(--color-muted)] mt-8" data-anim="up">Illustratieve selectie voor deze demo. De actuele kaart ligt op tafel.</p>
+    </div>
+  </section>
+
+  <!-- 4. Alcoholvrij (donkere band) -->
+  <section class="section">
+    <div class="container">
+      <div class="band-dark p-[clamp(2rem,5vw,3.5rem)]" data-anim="up">
+        <div class="grid gap-7 md:grid-cols-[1.5fr_auto] md:items-end">
+          <div>
+            <p class="eyebrow eyebrow--light">Liever zonder alcohol</p>
+            <h2 class="sec-title mt-4">Een alcoholvrij arrangement</h2>
+            <p class="mt-4 max-w-[58ch]">
+              Ook zonder alcohol verzorgen we een arrangement per gang: huisgemaakte kombucha, verjus, infusies van kruiden en seizoensfruit. Even doordacht als de wijnen, geef het door bij uw reservering.
+            </p>
+          </div>
+          <button type="button" class="btn btn-accent shrink-0" data-reserve-open>Reserveren <Icon name="arrow" size={14} stroke={1.8} /></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
