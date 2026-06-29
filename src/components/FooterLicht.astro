@@ -1,0 +1,62 @@
+---
+import { site } from "../data/site";
+import Icon from "./Icon.astro";
+const year = new Date().getFullYear();
+const links = [
+  { href: "#verhaal", label: "Ons verhaal" },
+  { href: "#menu", label: "Menukaart" },
+  { href: "#wijnen", label: "Wijnen" },
+  { href: "#gezelschappen", label: "Gezelschappen" },
+  { href: "#contact", label: "Contact" },
+];
+const email = "info@hetpackhuys.nl";
+---
+
+<footer class="foot">
+  <div class="container py-16 md:py-20 grid gap-10 md:grid-cols-[1.6fr_1fr_1.1fr_1fr]">
+    <div>
+      <div class="foot__brand">Het Packhuys</div>
+      <p class="text-sm mt-4 max-w-[34ch] text-[rgba(244,239,231,.66)] leading-relaxed">
+        Fine dining in een authentiek pakhuis aan de jachthaven van Middelburg. Een seizoensmenu van eigen hand.
+      </p>
+      <div class="inline-flex items-center gap-2.5 mt-5 text-sm text-[rgba(244,239,231,.7)]">
+        <span class="foot__dot"></span>
+        <span data-open-status data-open-status-text>Geopend voor reserveringen</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="foot__label">Ontdek</div>
+      <nav class="space-y-2 text-sm" aria-label="Footermenu">
+        {links.map((l) => <div><a href={l.href}>{l.label}</a></div>)}
+      </nav>
+    </div>
+
+    <div>
+      <div class="foot__label">Bezoek</div>
+      <address class="not-italic text-sm leading-relaxed text-[rgba(244,239,231,.78)]">
+        Kinderdijk 84<br />4331 HH Middelburg
+      </address>
+      <ul class="space-y-1.5 text-sm mt-3">
+        <li><a href={site.phoneHref}>{site.phone}</a></li>
+        <li><a href={`mailto:${email}`}>{email}</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="foot__label">Volg ons</div>
+      <div class="flex gap-3">
+        <a href={site.social.instagram} class="foot__social" aria-label="Instagram" target="_blank" rel="noopener"><Icon name="instagram" size={17} /></a>
+        <a href={site.social.facebook} class="foot__social" aria-label="Facebook" target="_blank" rel="noopener"><Icon name="facebook" size={17} /></a>
+      </div>
+      <button type="button" class="btn btn-light mt-6" data-reserve-open>Reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} /></button>
+    </div>
+  </div>
+
+  <div class="border-t border-[rgba(244,239,231,.14)]">
+    <div class="container py-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-[rgba(244,239,231,.5)]">
+      <div>&copy; {year} Het Packhuys &middot; Middelburg</div>
+      <div>Ontwerp &amp; realisatie &middot; <a href="https://agensea.nl" target="_blank" rel="noopener" class="underline-offset-2 hover:underline">Agensea</a></div>
+    </div>
+  </div>
+</footer>

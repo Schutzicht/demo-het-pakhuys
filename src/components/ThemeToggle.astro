@@ -1,0 +1,29 @@
+---
+// Vergelijk-schakelaar: springt tussen de donkere (/) en lichte (/licht) variant.
+// data-astro-reload forceert een volledige load zodat het juiste thema-CSS laadt.
+interface Props { current: "donker" | "licht"; }
+const { current } = Astro.props;
+---
+<div class="tt" role="group" aria-label="Wissel demo-variant">
+  <span class="tt__label">Demo</span>
+  <a href="/" class:list={["tt__opt", current === "donker" && "is-on"]} data-astro-reload aria-current={current === "donker" ? "true" : undefined}>Donker</a>
+  <a href="/licht" class:list={["tt__opt", current === "licht" && "is-on"]} data-astro-reload aria-current={current === "licht" ? "true" : undefined}>Licht</a>
+</div>
+
+<style>
+  .tt {
+    position: fixed; left: 1rem; bottom: 1rem; z-index: 56;
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    background: rgba(18, 18, 20, 0.82);
+    backdrop-filter: saturate(160%) blur(12px); -webkit-backdrop-filter: saturate(160%) blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 999px;
+    padding: 0.3rem 0.4rem 0.3rem 0.85rem;
+    box-shadow: 0 14px 34px -16px rgba(0, 0, 0, 0.65);
+    font-family: "Inter", system-ui, sans-serif;
+  }
+  .tt__label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255, 255, 255, 0.5); margin-right: 0.25rem; }
+  .tt__opt { font-size: 0.8rem; color: rgba(255, 255, 255, 0.72); padding: 0.4rem 0.85rem; border-radius: 999px; text-decoration: none; transition: background-color 0.2s ease, color 0.2s ease; }
+  .tt__opt.is-on { background: #fbf8f3; color: #1a1a1a; }
+  .tt__opt:not(.is-on):hover { color: #fff; }
+  @media (max-width: 640px) { .tt { left: 0.7rem; bottom: 0.7rem; padding: 0.28rem 0.35rem 0.28rem 0.7rem; } .tt__label { display: none; } }
+</style>

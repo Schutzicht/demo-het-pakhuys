@@ -1,0 +1,48 @@
+---
+import { site } from "../data/site";
+import Icon from "./Icon.astro";
+---
+
+<div class="rc-overlay" data-reserve-overlay role="dialog" aria-modal="true" aria-labelledby="rc-title" hidden>
+  <div class="rc-modal">
+    <button type="button" class="rc-close" aria-label="Sluit reserveringsvenster" data-reserve-close>
+      <Icon name="close" size={20} stroke={1.8} />
+    </button>
+
+    <span class="rc-eyebrow">Reserveren</span>
+    <h2 id="rc-title" class="font-display text-[2.4rem] mt-2 leading-none"><span class="italic">Een tafel</span> aan de haven</h2>
+    <p class="text-sm text-[color:var(--color-muted)] mt-3 leading-relaxed font-light">
+      Kies hoe u wilt reserveren. Online ziet u direct de actuele beschikbaarheid, of neem persoonlijk contact op.
+    </p>
+
+    <div class="grid gap-2.5 mt-6">
+      <a href={site.zenchef.reserve} target="_blank" rel="noopener" class="rc-channel rc-channel--accent">
+        <span class="rc-channel__ic"><Icon name="calendar" size={20} /></span>
+        <span class="flex-1">
+          <span class="rc-channel__t block">Online reserveren</span>
+          <span class="rc-channel__s">Live beschikbaarheid via Zenchef</span>
+        </span>
+        <Icon name="arrowUpRight" size={18} class="text-[color:var(--color-muted)]" />
+      </a>
+      <a href={site.phoneHref} class="rc-channel">
+        <span class="rc-channel__ic"><Icon name="phone" size={18} /></span>
+        <span class="flex-1">
+          <span class="rc-channel__t block">Bel ons</span>
+          <span class="rc-channel__s">{site.phone}</span>
+        </span>
+      </a>
+      <a href="mailto:info@hetpackhuys.nl" class="rc-channel">
+        <span class="rc-channel__ic"><Icon name="mail" size={18} /></span>
+        <span class="flex-1">
+          <span class="rc-channel__t block">Mail ons</span>
+          <span class="rc-channel__s">info@hetpackhuys.nl</span>
+        </span>
+      </a>
+    </div>
+
+    <p class="text-[0.78rem] text-[color:var(--color-muted)] mt-4 leading-relaxed font-light">
+      Geopend voor diner van 18:00 uur, woensdag en zondag gesloten. Een gezelschap vanaf acht personen?
+      <a href="#gezelschappen" class="link-line" data-reserve-close>Bekijk de mogelijkheden</a>.
+    </p>
+  </div>
+</div>
