@@ -1,27 +1,22 @@
 ---
+import { nav } from "../data/site";
 import Icon from "./Icon.astro";
-// Lichte multipage: zelfde paginastructuur als de donkere demo, /licht/-prefix.
-const links = [
-  { href: "/licht/menukaart", label: "Menukaart" },
-  { href: "/licht/wijnen", label: "Wijnen" },
-  { href: "/licht/ons-verhaal", label: "Ons verhaal" },
-  { href: "/licht/gezelschappen", label: "Gezelschappen" },
-  { href: "/licht/contact", label: "Contact" },
-];
-const sheetLinks = [{ href: "/licht", label: "Home" }, ...links];
-const path = Astro.url.pathname.replace(/\/+$/, "") || "/";
-const isCurrent = (href: string) => path === href.replace(/\/+$/, "");
+// Lichte variant = donkere chrome, links wijzen naar /licht/*.
+const L = (h: string) => (h === "/" ? "/licht" : "/licht" + h);
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isCurrent = (href: string) => (href === "/licht" ? path === "/licht" : path.startsWith(href));
 ---
 
 <nav class="nav" data-nav aria-label="Hoofdmenu">
   <div class="nav__pill">
     <a href="/licht" class="nav__logo" aria-label="Het Packhuys, naar home">
-      <img src="/brand/homarium-crest.png" alt="" class="nav__crest" aria-hidden="true" />
-      <span class="nav__wordmark">Het <b>Packhuys</b></span>
+      <img src="/brand/logo-packhuys-white.png" alt="Het Packhuys" class="nav__logo-img" />
     </a>
     <span class="nav__divider"></span>
     <div class="nav__links inline-flex items-center">
-      {links.map((l) => <a href={l.href} class="nav__link" aria-current={isCurrent(l.href) ? "page" : undefined}>{l.label}</a>)}
+      {nav.slice(1).map((item) => (
+        <a href={L(item.href)} class="nav__link" aria-current={isCurrent(L(item.href)) ? "page" : undefined}>{item.label}</a>
+      ))}
     </div>
     <span class="nav__divider"></span>
     <button type="button" class="nav__cta" data-reserve-open>
@@ -38,10 +33,13 @@ const isCurrent = (href: string) => path === href.replace(/\/+$/, "");
   <button type="button" class="absolute top-6 right-6 nav__toggle" data-nav-toggle aria-label="Sluit menu">
     <Icon name="close" size={22} stroke={1.8} />
   </button>
-  {sheetLinks.map((l, i) => (
-    <a href={l.href} aria-current={isCurrent(l.href) ? "page" : undefined}>{l.label}<span>{String(i).padStart(2, "0")}</span></a>
+  {nav.map((item, i) => (
+    <a href={L(item.href)} aria-current={isCurrent(L(item.href)) ? "page" : undefined}>
+      {item.label}
+      <span>{String(i + 1).padStart(2, "0")}</span>
+    </a>
   ))}
-  <button type="button" class="btn btn-solid mt-10 self-start" data-reserve-open>
+  <button type="button" class="btn btn-solid btn-ring mt-10 self-start" data-reserve-open>
     Reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} />
   </button>
 </aside>

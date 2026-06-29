@@ -2,68 +2,77 @@
 import Base from "../../layouts/BaseLicht.astro";
 import Icon from "../../components/Icon.astro";
 import { site, hours } from "../../data/site";
-const email = "info@hetpackhuys.nl";
 
-const hoursRows = hours.map((h) => ({
-  day: h.day,
-  v: h.open ? `${h.open} tot ${h.close}` : "Gesloten",
-  closed: !h.open,
-}));
+// JS-dagindex (0 = zondag) per rij, voor het markeren van 'vandaag'
 const jsDay = (i: number) => (i + 1) % 7;
+const mapEmbed = "https://www.google.com/maps?q=Kinderdijk+84,+4331+HH+Middelburg&output=embed";
 ---
 
-<Base
-  title="Contact & openingstijden | Het Packhuys"
-  description="Het Packhuys aan de Kinderdijk 84, jachthaven Middelburg. Geopend voor diner, woensdag en zondag gesloten. Reserveren via ZenChef."
-  ogImage="/photos/haven-boten.jpg"
->
-  <!-- 1. Page hero -->
+<Base title="Contact & openingstijden | Het Packhuys" description="Het Packhuys, Kinderdijk 84 in Middelburg. Openingstijden, route en reserveren. Geopend voor diner vanaf 18:00 uur.">
   <section class="page-hero">
     <div class="page-hero__media" aria-hidden="true"><img src="/photos/haven-boten.jpg" alt="" /></div>
     <div class="page-hero__inner container">
-      <p class="crumbs"><a href="/licht">Home</a> / Contact</p>
-      <h1 class="mt-3">Contact &amp; openingstijden</h1>
-      <p class="mt-3 max-w-[60ch]">U vindt ons aan de Kinderdijk, aan de jachthaven van Middelburg. Geopend voor diner, woensdag en zondag gesloten.</p>
+      <p class="crumbs"><a href="/licht" class="link-underline">Home</a> &nbsp;/&nbsp; Contact</p>
+      <h1>Contact &amp; openingstijden</h1>
+      <p>U vindt ons aan de Kinderdijk, aan de jachthaven van Middelburg. Geopend voor diner, woensdag en zondag gesloten.</p>
     </div>
   </section>
 
-  <!-- 2. Contact + openingstijden -->
   <section class="section">
     <div class="container grid gap-10 lg:grid-cols-2 items-start">
-      <div data-anim="up">
+      <!-- Gegevens -->
+      <div data-reveal>
         <p class="eyebrow">Bezoek ons</p>
-        <h2 class="sec-title mt-4">Aan de haven</h2>
-        <div class="mt-7">
-          <a href={site.maps} target="_blank" rel="noopener" class="info-row">
-            <span class="info-row__ic"><Icon name="pin" size={18} /></span>
-            <span class="flex-1"><span class="info-row__t block">{site.address.street}</span><span class="info-row__s">{site.address.zip} {site.address.city}</span></span>
-            <Icon name="arrowUpRight" size={16} class="text-[color:var(--color-muted)] self-center" />
+        <h2 class="sec-title mt-3">Aan de haven</h2>
+
+        <div class="mt-7 grid gap-3">
+          <a href={site.maps} target="_blank" rel="noopener" class="rc-channel">
+            <span class="rc-channel__ic"><Icon name="pin" size={18} /></span>
+            <span class="flex-1">
+              <span class="rc-channel__t block">{site.address.street}</span>
+              <span class="rc-channel__s">{site.address.zip} {site.address.city}</span>
+            </span>
+            <Icon name="arrowUpRight" size={18} class="text-[color:var(--color-ink-55)]" />
           </a>
-          <a href={site.phoneHref} class="info-row">
-            <span class="info-row__ic"><Icon name="phone" size={18} /></span>
-            <span class="flex-1"><span class="info-row__t block">Bel ons</span><span class="info-row__s">{site.phone}</span></span>
+          <a href={site.phoneHref} class="rc-channel">
+            <span class="rc-channel__ic"><Icon name="phone" size={18} /></span>
+            <span class="flex-1">
+              <span class="rc-channel__t block">Bel ons</span>
+              <span class="rc-channel__s">{site.phone}</span>
+            </span>
           </a>
-          <a href={`mailto:${email}`} class="info-row">
-            <span class="info-row__ic"><Icon name="mail" size={18} /></span>
-            <span class="flex-1"><span class="info-row__t block">Mail ons</span><span class="info-row__s">{email}</span></span>
+          <a href={`mailto:${site.email}`} class="rc-channel">
+            <span class="rc-channel__ic"><Icon name="mail" size={18} /></span>
+            <span class="flex-1">
+              <span class="rc-channel__t block">Mail ons</span>
+              <span class="rc-channel__s">{site.email}</span>
+            </span>
           </a>
         </div>
-        <div class="flex flex-wrap gap-3 mt-7">
-          <button type="button" class="btn btn-solid" data-reserve-open>Reserveren <Icon name="arrow" size={14} stroke={1.8} /></button>
-          <a href={site.zenchef.shop} target="_blank" rel="noopener" class="btn btn-ghost"><Icon name="gift" size={15} stroke={1.8} /> Cadeaubon</a>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button type="button" class="btn btn-primary" data-reserve-open>Reserveren<Icon name="arrow" size={14} stroke={2} /></button>
+          <a href={site.zenchef.shop} target="_blank" rel="noopener" class="btn btn-ghost"><Icon name="gift" size={15} /> Cadeaubon</a>
         </div>
       </div>
 
-      <div data-anim="up" style="--reveal-delay: 100ms">
-        <div class="booking-card">
-          <p class="rc-eyebrow">Openingstijden</p>
-          <ul class="hours mt-3">
-            {hoursRows.map((h, i) => (
-              <li data-day={jsDay(i)}><span class="day">{h.day}</span>{h.closed ? <span class="closed">Gesloten</span> : <span>{h.v}</span>}</li>
+      <!-- Openingstijden -->
+      <div data-reveal style="--reveal-delay: 100ms">
+        <div class="surface-1 rounded-[14px] border border-[color:var(--color-stroke)] p-7 md:p-9">
+          <p class="eyebrow eyebrow--light">Openingstijden</p>
+          <ul class="hours mt-5">
+            {hours.map((h, i) => (
+              <li data-day={jsDay(i)}>
+                <span class="day">{h.day}</span>
+                {h.open ? <span class="time">{h.open} tot {h.close}</span> : <span class="closed">Gesloten</span>}
+              </li>
             ))}
           </ul>
-          <div class="open-status mt-4" data-open-status><span class="open-status__dot"></span><span data-open-status-text>Openingstijden</span></div>
-          <p class="text-sm text-[color:var(--color-muted)] mt-4 leading-relaxed">
+          <div class="open-status mt-6" data-open-status>
+            <span class="open-status__dot"></span>
+            <span data-open-status-text>Openingstijden</span>
+          </div>
+          <p class="text-[0.82rem] text-[color:var(--color-muted)] mt-4 leading-relaxed">
             Onze keuken opent om 18:00 uur. Het restaurant is uiteraard langer geopend dan de aanvangstijden, neem voor een latere aankomst gerust contact op.
           </p>
         </div>
@@ -71,37 +80,15 @@ const jsDay = (i: number) => (i + 1) % 7;
     </div>
   </section>
 
-  <!-- 3. Reserveren (ZenChef) + kaart -->
+  <!-- Kaart -->
   <section class="section-sm pt-0">
-    <div class="container grid gap-8 lg:grid-cols-2 items-start">
-      <div data-anim="up">
-        <div class="booking-card">
-          <p class="rc-eyebrow">Reserveren</p>
-          <h3 class="font-display text-[1.8rem] mt-2 leading-tight">Een tafel aan de haven</h3>
-          <p class="text-sm text-[color:var(--color-muted)] mt-2 leading-relaxed">Reserveer online via ons boekingssysteem, of neem persoonlijk contact op.</p>
-          <div class="zenchef-ph mt-5">
-            <div class="zenchef-ph__badge">ZenChef</div>
-            <p class="text-sm text-[color:var(--color-muted)] mt-2 leading-relaxed">Hier komt de live ZenChef-boekingsmodule, gekoppeld aan jullie bestaande abonnement. De gast ziet meteen de beschikbaarheid en boekt direct.</p>
-          </div>
-          <div class="grid gap-2.5 mt-5">
-            <a href={site.zenchef.reserve} target="_blank" rel="noopener" class="btn btn-solid w-full">Online reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} /></a>
-            <div class="grid grid-cols-2 gap-2.5">
-              <a href={site.phoneHref} class="btn btn-outline">Bellen</a>
-              <a href={`mailto:${email}`} class="btn btn-outline">Mailen</a>
-            </div>
-          </div>
-        </div>
+    <div class="container">
+      <div class="map-frame" data-reveal>
+        <iframe src={mapEmbed} title="Kaart met de locatie van Het Packhuys aan de Kinderdijk in Middelburg" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-
-      <div data-anim="up">
-        <div style="position:relative;width:100%;aspect-ratio:16/11;border-radius:var(--r);overflow:hidden;border:1px solid var(--color-line);box-shadow:var(--shadow);">
-          <iframe src="https://www.google.com/maps?q=Kinderdijk+84,+4331+HH+Middelburg&output=embed" title="Kaart Het Packhuys" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
-        </div>
-        <div class="note mt-4">
-          <span class="note__ic"><Icon name="pin" size={18} /></span>
-          <p>In de directe omgeving kunt u parkeren op de aangrenzende parkeerterreinen aan de haven. Komt u met een groep of heeft u vragen over de route? We helpen u graag.</p>
-        </div>
-      </div>
+      <p class="text-[0.82rem] text-[color:var(--color-ink-55)] mt-4 max-w-[70ch] leading-relaxed">
+        In de directe omgeving kunt u parkeren op de aangrenzende parkeerterreinen aan de haven. Komt u met een groep of heeft u vragen over de route? We helpen u graag.
+      </p>
     </div>
   </section>
 </Base>

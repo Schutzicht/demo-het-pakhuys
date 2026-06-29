@@ -1,81 +1,65 @@
 ---
-import { site } from "../data/site";
+import { site, nav } from "../data/site";
 import Icon from "./Icon.astro";
 const year = new Date().getFullYear();
-const email = "info@hetpackhuys.nl";
-const links = [
-  { href: "/licht/menukaart", label: "Menukaart" },
-  { href: "/licht/wijnen", label: "Wijnen" },
-  { href: "/licht/ons-verhaal", label: "Ons verhaal" },
-  { href: "/licht/gezelschappen", label: "Gezelschappen" },
-  { href: "/licht/contact", label: "Contact" },
-];
 ---
 
 <footer class="foot">
-  <!-- CTA-band -->
-  <div class="border-b border-[rgba(244,239,231,.14)]">
-    <div class="container py-14 md:py-16 flex flex-col md:flex-row md:items-end md:justify-between gap-7">
-      <div>
-        <p class="eyebrow eyebrow--light">Tot ziens aan de Kinderdijk</p>
-        <h2 class="font-display text-[clamp(2rem,4vw,3rem)] mt-3 leading-[1.05]">Reserveer uw tafel</h2>
-        <p class="text-sm mt-3 max-w-[46ch] text-[rgba(244,239,231,.72)] leading-relaxed">
-          Geopend voor diner van 18:00 uur. Woensdag en zondag gesloten.
-        </p>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <button type="button" class="btn btn-light" data-reserve-open>Reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} /></button>
-        <a href={site.phoneHref} class="btn btn-outline"><Icon name="phone" size={15} stroke={1.8} /> Bel ons</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Kolommen -->
-  <div class="container py-16 md:py-20 grid gap-10 md:grid-cols-[1.6fr_1fr_1.1fr_1fr]">
-    <div>
-      <div class="foot__brand">Het Packhuys</div>
-      <p class="text-sm mt-4 max-w-[34ch] text-[rgba(244,239,231,.66)] leading-relaxed">
-        Fine dining in een authentiek pakhuis aan de jachthaven van Middelburg. Een seizoensmenu van eigen hand.
+  <div class="container">
+    <!-- CTA -->
+    <div class="text-center pt-16 md:pt-24 pb-14">
+      <p class="eyebrow eyebrow--line justify-center" data-anim="up">Tot ziens aan de Kinderdijk</p>
+      <h2 class="display-2 mt-5" data-anim="up">Reserveer uw tafel</h2>
+      <p class="lede mx-auto mt-5 max-w-[46ch]" data-anim="up">
+        Geopend voor diner van 18:00 uur. Woensdag en zondag gesloten.
       </p>
-      <div class="inline-flex items-center gap-2.5 mt-5 text-sm text-[rgba(244,239,231,.7)]">
-        <span class="foot__dot"></span>
-        <span data-open-status data-open-status-text>Geopend voor reserveringen</span>
+      <div class="flex flex-wrap justify-center gap-3 mt-9" data-anim="up">
+        <button type="button" class="btn btn-solid btn-ring" data-reserve-open>Reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} /></button>
+        <a href={site.phoneHref} class="btn btn-outline"><Icon name="phone" size={15} /> {site.phone}</a>
       </div>
     </div>
 
-    <div>
-      <div class="foot__label">Ontdek</div>
-      <nav class="space-y-2 text-sm" aria-label="Footermenu">
-        {links.map((l) => <div><a href={l.href}>{l.label}</a></div>)}
-      </nav>
-    </div>
-
-    <div>
-      <div class="foot__label">Bezoek</div>
-      <address class="not-italic text-sm leading-relaxed text-[rgba(244,239,231,.78)]">
-        Kinderdijk 84<br />4331 HH Middelburg
-      </address>
-      <ul class="space-y-1.5 text-sm mt-3">
-        <li><a href={site.maps} target="_blank" rel="noopener">Route &amp; parkeren</a></li>
-        <li><a href={site.phoneHref}>{site.phone}</a></li>
-        <li><a href={`mailto:${email}`}>{email}</a></li>
-      </ul>
-    </div>
-
-    <div>
-      <div class="foot__label">Volg ons</div>
-      <div class="flex gap-3">
-        <a href={site.social.instagram} class="foot__social" aria-label="Instagram" target="_blank" rel="noopener"><Icon name="instagram" size={17} /></a>
-        <a href={site.social.facebook} class="foot__social" aria-label="Facebook" target="_blank" rel="noopener"><Icon name="facebook" size={17} /></a>
+    <!-- Bar -->
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] border-t border-[color:var(--color-stroke)] pt-12">
+      <div>
+        <a href="/licht" class="inline-block">
+          <img src="/brand/logo-packhuys-white.png" alt="Het Packhuys" class="foot__logo" />
+        </a>
+        <p class="text-sm text-[color:var(--color-muted)] mt-4 max-w-[32ch] font-light">
+          Fine dining in een authentiek pakhuis aan de jachthaven van Middelburg.
+        </p>
+        <div class="inline-flex items-center gap-2.5 mt-5 text-sm text-[color:var(--color-muted)]">
+          <span class="foot__dot"></span>
+          <span data-open-status data-open-status-text>Geopend voor reserveringen</span>
+        </div>
       </div>
-      <button type="button" class="btn btn-light mt-6" data-reserve-open>Reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} /></button>
+      <div>
+        <div class="text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-muted)] mb-4">Bezoek</div>
+        <address class="not-italic text-sm leading-relaxed">{site.address.street}<br />{site.address.zip} {site.address.city}</address>
+        <a href={site.maps} target="_blank" rel="noopener" class="link-line text-sm mt-3"><Icon name="pin" size={14} /> Route</a>
+      </div>
+      <div>
+        <div class="text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-muted)] mb-4">Contact</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href={site.phoneHref} class="link-line">{site.phone}</a></li>
+          <li><a href={`mailto:${site.email}`} class="link-line">{site.email}</a></li>
+        </ul>
+        <div class="flex gap-3 mt-4">
+          <a href={site.social.instagram} class="foot__social" aria-label="Instagram" target="_blank" rel="noopener"><Icon name="instagram" size={17} /></a>
+          <a href={site.social.facebook} class="foot__social" aria-label="Facebook" target="_blank" rel="noopener"><Icon name="facebook" size={17} /></a>
+        </div>
+      </div>
+      <div>
+        <div class="text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-muted)] mb-4">Menu</div>
+        <nav class="space-y-2 text-sm" aria-label="Footermenu">
+          {nav.slice(1).map((item) => <div><a href={"/licht" + item.href} class="link-line">{item.label}</a></div>)}
+        </nav>
+      </div>
     </div>
-  </div>
 
-  <div class="border-t border-[rgba(244,239,231,.14)]">
-    <div class="container py-6 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-[rgba(244,239,231,.64)]">
-      <div>&copy; {year} Het Packhuys &middot; Middelburg</div>
-      <div>Ontwerp &amp; realisatie &middot; <a href="https://agensea.nl" target="_blank" rel="noopener" class="underline-offset-2 hover:underline">Agensea</a></div>
+    <div class="mt-10 pt-6 pb-10 border-t border-[color:var(--color-stroke)] flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between text-xs text-[color:var(--color-muted)]">
+      <div>&copy; {year} {site.name}, {site.city}.</div>
+      <div>Demo door <a href="https://agensea.nl" target="_blank" rel="noopener" class="link-line">Agensea</a></div>
     </div>
   </div>
 </footer>

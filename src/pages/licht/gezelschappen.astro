@@ -2,18 +2,11 @@
 import Base from "../../layouts/BaseLicht.astro";
 import Icon from "../../components/Icon.astro";
 import { site } from "../../data/site";
-const email = "info@hetpackhuys.nl";
 
 const occasions = [
   { icon: "sparkle", title: "Familie & feest", body: "Een verjaardag, jubileum of gewoon omdat het kan. Wij verzorgen een menu dat past bij de gelegenheid." },
   { icon: "users", title: "Zakelijk diner", body: "Indruk maken op relaties of het team bedanken, in een zaal die vanzelf het gesprek op gang brengt." },
   { icon: "wine", title: "Besloten dineren", body: "Voor groepen kunnen we een deel van het pakhuis besloten reserveren, met een eigen ritme en aandacht." },
-];
-const checklist = [
-  "Vast seizoensmenu, samen gekozen",
-  "Bijpassend wijn- of alcoholvrij arrangement",
-  "Rekening met allergieën en dieetwensen",
-  "Een deel van het pakhuis besloten mogelijk",
 ];
 const steps = [
   { n: "01", t: "Neem contact op", d: "Bel of mail ons met de datum, het aantal personen en wat u in gedachten heeft." },
@@ -22,85 +15,86 @@ const steps = [
 ];
 ---
 
-<Base
-  title="Gezelschappen | Het Packhuys"
-  description="Iets te vieren met een groep? Vanaf acht personen stellen we een maatwerkmenu samen in het pakhuis aan de haven, tot 50 gasten binnen."
-  ogImage="/photos/gasten-diner.jpg"
->
-  <!-- 1. Page hero -->
+<Base title="Gezelschappen | Het Packhuys" description="Met een groep dineren bij Het Packhuys: van familiefeest tot zakelijk diner in een authentiek pakhuis aan de haven van Middelburg.">
   <section class="page-hero">
     <div class="page-hero__media" aria-hidden="true"><img src="/photos/gasten-diner.jpg" alt="" /></div>
     <div class="page-hero__inner container">
-      <p class="crumbs"><a href="/licht">Home</a> / Gezelschappen</p>
-      <h1 class="mt-3">Gezelschappen</h1>
-      <p class="mt-3 max-w-[60ch]">Iets te vieren met een groep? Het pakhuis aan de haven is er bij uitstek geschikt voor. Vanaf acht personen denken we graag met u mee.</p>
+      <p class="crumbs"><a href="/licht" class="link-underline">Home</a> &nbsp;/&nbsp; Gezelschappen</p>
+      <h1>Gezelschappen</h1>
+      <p>Iets te vieren met een groep? Het pakhuis aan de haven is er bij uitstek geschikt voor. Vanaf acht personen denken we graag met u mee.</p>
     </div>
   </section>
 
-  <!-- 2. Gelegenheden -->
+  <!-- Gelegenheden -->
   <section class="section">
     <div class="container">
-      <div class="grid gap-5 md:grid-cols-3" data-stagger>
-        {occasions.map((o) => (
-          <div class="card" data-anim="up">
-            <span class="card__ic"><Icon name={o.icon} size={22} /></span>
-            <h3 class="card__t">{o.title}</h3>
-            <p>{o.body}</p>
+      <div class="sec-head sec-head--center text-center mb-10" data-reveal>
+        <p class="eyebrow eyebrow--center justify-center">Voor elke gelegenheid</p>
+        <h2 class="sec-title mt-3">Samen aan tafel onder de balken</h2>
+      </div>
+      <div class="grid gap-4 md:grid-cols-3">
+        {occasions.map((o, i) => (
+          <div class="course-card" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+            <Icon name={o.icon} size={28} class="text-[color:var(--accent-dark)]" />
+            <h3 class="font-display text-2xl mt-3">{o.title}</h3>
+            <p class="text-[color:var(--color-ink-70)] mt-2 leading-relaxed text-[0.95rem]">{o.body}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 3. Op maat -->
+  <!-- Beeld + tekst -->
   <section class="section-sm">
-    <div class="container split split--wide-img" data-anim="up">
-      <div class="frame frame--wide frame-hover">
-        <img src="/photos/interieur-tafels.jpg" alt="Gedekte tafels voor een gezelschap" loading="lazy" />
+    <div class="container split">
+      <div class="frame frame--wide frame-hover" data-reveal>
+        <img src="/photos/interieur-tafels.jpg" alt="Gedekte tafels voor een gezelschap" />
       </div>
-      <div>
+      <div data-reveal style="--reveal-delay: 100ms">
         <p class="eyebrow">Op maat</p>
-        <h2 class="sec-title mt-4">Een avond zonder zorgen</h2>
-        <p class="mt-5 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]">
+        <h2 class="sec-title mt-3">Een avond zonder zorgen</h2>
+        <p class="mt-4 text-[color:var(--color-ink-70)] leading-relaxed">
           Voor een groep werken we met een vast menu, zodat de keuken alle aandacht aan het bord kan geven en u aan elkaar. We stemmen vooraf het aantal gangen, de wijnen en het tijdstip af, en houden rekening met dieetwensen aan tafel.
         </p>
-        <ul class="checklist mt-6">
-          {checklist.map((c) => (
-            <li><Icon name="check" size={18} /> <span>{c}</span></li>
+        <ul class="mt-5 grid gap-2.5">
+          {["Vast seizoensmenu, samen gekozen", "Bijpassend wijn- of alcoholvrij arrangement", "Rekening met allergieën en dieetwensen", "Een deel van het pakhuis besloten mogelijk"].map((li) => (
+            <li class="flex items-start gap-2.5 text-[0.95rem] text-[color:var(--color-ink-70)]">
+              <Icon name="check" size={18} class="text-[color:var(--accent-dark)] mt-0.5 shrink-0" /> {li}
+            </li>
           ))}
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 4. Zo werkt het -->
-  <section class="section surface-bone2">
+  <!-- Hoe het werkt -->
+  <section class="section surface-sand">
     <div class="container">
-      <div class="max-w-[52ch] mb-9" data-anim="up">
-        <p class="eyebrow">Zo werkt het</p>
-        <h2 class="sec-title mt-4">In drie stappen geregeld</h2>
+      <div class="sec-head sec-head--center text-center mb-10" data-reveal>
+        <p class="eyebrow eyebrow--center justify-center">Zo werkt het</p>
+        <h2 class="sec-title mt-3">In drie stappen geregeld</h2>
       </div>
-      <div class="steps" data-stagger>
-        {steps.map((s) => (
-          <div data-anim="up">
-            <div class="step__n">{s.n}</div>
-            <div class="step__t">{s.t}</div>
-            <p class="step__d">{s.d}</p>
+      <div class="grid gap-4 md:grid-cols-3">
+        {steps.map((s, i) => (
+          <div class="bg-[color:var(--color-surface)] border border-[color:var(--color-stroke)] rounded-[10px] p-7" data-reveal style={`--reveal-delay: ${i * 70}ms`}>
+            <div class="font-display text-[color:var(--accent)] text-4xl leading-none">{s.n}</div>
+            <h3 class="font-display text-xl mt-3">{s.t}</h3>
+            <p class="text-[color:var(--color-ink-70)] mt-2 leading-relaxed text-[0.92rem]">{s.d}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 5. Contact-CTA -->
-  <section class="section-sm">
-    <div class="container-narrow text-center" data-anim="up">
+  <!-- CTA -->
+  <section class="section">
+    <div class="container-narrow text-center" data-reveal>
       <p class="eyebrow eyebrow--center justify-center">Iets te vieren?</p>
-      <h2 class="sec-title mt-4">Laten we het samen invullen</h2>
-      <p class="lede mt-4 max-w-[50ch] mx-auto">Vertel ons over de gelegenheid, dan denken we mee over de mooiste manier om het te vieren.</p>
-      <div class="flex flex-wrap gap-3 justify-center mt-7">
-        <a href={site.phoneHref} class="btn btn-solid"><Icon name="phone" size={15} stroke={1.8} /> Bel ons</a>
-        <a href={`mailto:${email}`} class="btn btn-ghost"><Icon name="mail" size={15} stroke={1.8} /> Mail ons</a>
+      <h2 class="sec-title mt-3">Laten we het samen invullen</h2>
+      <p class="lede mt-4 mx-auto" style="max-width: 50ch;">Vertel ons over de gelegenheid, dan denken we mee over de mooiste manier om het te vieren.</p>
+      <div class="flex flex-wrap justify-center gap-3 mt-7">
+        <a href={site.phoneHref} class="btn btn-primary"><Icon name="phone" size={15} /> {site.phone}</a>
+        <a href={`mailto:${site.email}`} class="btn btn-ghost"><Icon name="mail" size={15} /> Mail ons</a>
       </div>
     </div>
   </section>

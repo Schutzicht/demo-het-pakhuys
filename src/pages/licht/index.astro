@@ -1,9 +1,9 @@
 ---
 import Base from "../../layouts/BaseLicht.astro";
 import Icon from "../../components/Icon.astro";
-import { dishes, reviews, stats } from "../../data/site";
+import { site, dishes, reviews } from "../../data/site";
 
-// Configurator-data (JS-logica gelijk aan de donkere demo)
+const signatures = dishes.filter((d) => d.sign).slice(0, 3);
 const menus = [
   { courses: 4, price: 58, wine: 36 },
   { courses: 5, price: 67, wine: 45 },
@@ -12,89 +12,91 @@ const menus = [
 ];
 const savory = dishes.slice(1, 7).map((d) => ({ name: d.name, vega: !!d.vega }));
 const dessert = { name: dishes[7].name };
-const homeStats = [stats[0], stats[1], stats[3]];
 ---
 
 <Base loader={true}>
-  <!-- 1. Hero -->
-  <section class="hero on-photo">
+  <!-- ══ Hero ══════════════════════════════════════════════ -->
+  <section class="hero">
     <div class="hero__bg" aria-hidden="true">
       <video autoplay muted loop playsinline poster="/photos/pand-buiten.jpg">
         <source src="/video/hero.mp4" type="video/mp4" />
       </video>
     </div>
     <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__veil-b" aria-hidden="true"></div>
     <div class="hero__inner">
       <div class="container">
-        <p class="eyebrow eyebrow--light" data-hero-fade>Aan de haven &middot; Middelburg</p>
-        <h1 class="hero__title mt-5" data-hero-name>Het <span class="accent">Packhuys</span></h1>
-        <p class="hero__sub" data-hero-fade>
-          Een verfijnd seizoensmenu in een eeuwenoud pakhuis aan de jachthaven. Oesters en kreeft uit ons eigen homarium, alles van eigen hand.
+        <p class="eyebrow eyebrow--line justify-center" data-hero-fade>Aan de haven &middot; Middelburg</p>
+        <h1 class="hero__name mt-6" data-hero-name>&rsquo;t Packhuys</h1>
+        <p class="hero__role" data-hero-fade>
+          Een <span class="w" data-role style="transition: opacity 0.3s ease, transform 0.3s ease;">belevenis</span> aan de haven.
         </p>
-        <div class="hero__actions" data-hero-fade>
-          <button type="button" class="btn btn-light" data-reserve-open>Reserveer een tafel <Icon name="arrow" size={14} stroke={1.8} /></button>
+        <p class="hero__desc" data-hero-fade>
+          Een verfijnd seizoensmenu in een eeuwenoud pakhuis, met oesters en kreeft uit ons eigen homarium.
+        </p>
+        <div class="hero__cta" data-hero-fade>
+          <button type="button" class="btn btn-solid btn-ring" data-reserve-open>Reserveer een tafel <Icon name="arrow" size={14} stroke={1.8} /></button>
           <a href="/licht/menukaart" class="btn btn-outline">Bekijk de kaart</a>
         </div>
       </div>
     </div>
-    <span class="scroll-cue" aria-hidden="true">Scroll<span class="scroll-cue__rail"></span></span>
+    <div class="scroll-ind" aria-hidden="true"><span>Scroll</span><div class="scroll-ind__rail"></div></div>
   </section>
 
-  <!-- 2. Seizoens-lint -->
-  <div class="ribbon">
-    <div class="ribbon__in">
-      <span>Ons <b>zomermenu</b> staat klaar, geserveerd t/m eind augustus</span>
-      <a href="/licht/menukaart">Bekijk de kaart</a>
-    </div>
-  </div>
-
-  <!-- 3. Het pakhuis / statement -->
+  <!-- ══ Statement ═════════════════════════════════════════ -->
   <section class="section">
-    <div class="container split split--wide-text">
-      <div>
-        <p class="eyebrow" data-anim="up">Het pakhuis</p>
-        <h2 class="statement mt-5" data-anim="up">Dineren waar ooit de <span class="accent">handel</span> lag opgeslagen, onder de balken van een echt pakhuis.</h2>
-        <p class="mt-6 text-[color:var(--color-ink-soft)] leading-relaxed max-w-[52ch]" data-anim="up">
-          Achter de dikke muren aan de Kinderdijk schuift u aan onder eeuwenoud hout, met uitzicht over de boten van de jachthaven. Onze keuken werkt met wat het seizoen en de Zeeuwse delta op dat moment te bieden hebben, geen onnodige opsmuk, wel gerechten die kloppen.
+    <div class="container">
+      <p class="eyebrow eyebrow--line" data-anim="up">Het pakhuis</p>
+      <h2 class="statement mt-8">
+        <span data-anim="blur" class="block">Dineren waar ooit de</span>
+        <span data-anim="blur" class="block"><span class="italic accent-text">handel</span> lag opgeslagen,</span>
+        <span data-anim="blur" class="block">onder de balken van een</span>
+        <span data-anim="blur" class="block">echt <span class="italic">pakhuis</span>.</span>
+      </h2>
+      <div class="grid md:grid-cols-[1fr_auto] gap-8 items-end mt-12" data-stagger>
+        <p class="lede max-w-[54ch]" data-anim="up">
+          Achter de dikke muren aan de Kinderdijk schuift u aan onder eeuwenoud hout, met uitzicht over de boten van de jachthaven. Onze keuken werkt met wat het seizoen en de Zeeuwse delta op dat moment te bieden hebben.
         </p>
-        <a href="/licht/ons-verhaal" class="link-line mt-7" data-anim="up">Ons verhaal <Icon name="arrow" size={15} stroke={1.8} /></a>
-      </div>
-      <div class="frame frame--tall frame-hover" data-anim="up">
-        <img src="/photos/interieur-tafels.jpg" alt="Gedekte tafels onder de balken van Het Packhuys" loading="lazy" />
-        <span class="tag-pill">Sinds de Zeeuwse handelstijd &middot; Kinderdijk 84</span>
+        <a href="/licht/ons-verhaal" class="btn btn-outline" data-anim="up">Ons verhaal <Icon name="arrow" size={14} stroke={1.8} /></a>
       </div>
     </div>
   </section>
 
-  <!-- 4. Homarium (cinematic) -->
-  <section class="cinema on-photo">
-    <div class="cinema__bg" aria-hidden="true"><img src="/photos/generated/homarium.jpg" alt="" data-parallax="8" /></div>
+  <!-- ══ Cinematic homarium ════════════════════════════════ -->
+  <section class="cinema">
+    <div class="cinema__bg" aria-hidden="true"><img src="/photos/generated/homarium.jpg" alt="" data-parallax="10" /></div>
     <div class="cinema__veil" aria-hidden="true"></div>
     <div class="cinema__body">
       <div class="container">
         <img src="/brand/homarium-crest.png" alt="Homarium" class="cinema__crest" data-anim="up" />
-        <p class="eyebrow eyebrow--light" data-anim="up">Onze signatuur</p>
-        <h2 class="cinema__title mt-4" data-anim="up">Recht uit het <span class="accent">homarium</span></h2>
-        <p class="cinema__text" data-anim="up">
+        <p class="eyebrow eyebrow--line" data-anim="up">Onze signatuur</p>
+        <h2 class="cinema__title mt-5" data-anim="up">Recht uit het <span class="italic accent-text">homarium</span></h2>
+        <p class="cinema__text mt-4" data-anim="up">
           Oesters, langoustines en kreeft leven in een aquarium met gekoeld Oosterscheldewater, tot het moment dat ze op uw bord komen. De kortste route die er bestaat tussen de zee en de tafel, en u proeft het verschil.
         </p>
-        <div class="facts" data-anim="up">
-          <div><div class="fact__n">Drie soorten</div><div class="fact__l">Oester, langoustine en kreeft</div></div>
-          <div><div class="fact__n">Levend gehouden</div><div class="fact__l">In gekoeld Oosterscheldewater</div></div>
-          <div><div class="fact__n">Van eigen hand</div><div class="fact__l">Alles vers uit onze keuken</div></div>
+        <div class="flex flex-wrap gap-x-10 gap-y-4 mt-8" data-anim="up">
+          <div>
+            <div class="font-display text-2xl accent-text">Drie soorten</div>
+            <div class="text-sm text-[color:var(--color-muted)] mt-1">Oester, langoustine en kreeft</div>
+          </div>
+          <div>
+            <div class="font-display text-2xl">Levend gehouden</div>
+            <div class="text-sm text-[color:var(--color-muted)] mt-1">In gekoeld Oosterscheldewater</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 5. Configurator -->
-  <section class="section surface-bone2">
+  <!-- ══ Configurator ══════════════════════════════════════ -->
+  <section class="section">
     <div class="container">
-      <div class="max-w-[58ch] mb-10" data-stagger>
-        <p class="eyebrow" data-anim="up">Stel uw avond samen</p>
-        <h2 class="sec-title mt-5"><span class="accent">Hoever</span> gaat u mee?</h2>
+      <div class="max-w-[60ch] mb-12" data-stagger>
+        <p class="eyebrow eyebrow--line" data-anim="up">Stel uw avond samen</p>
+        <h2 class="sec-title mt-5" data-anim="up"><span class="italic">Hoever</span> gaat u mee?</h2>
         <p class="lede mt-4" data-anim="up">Kies het aantal gangen en de begeleiding, dan ziet u meteen hoe uw avond eruitziet en wat het kost.</p>
       </div>
+
       <div class="config" data-config data-anim="up">
         <div class="config__form">
           <div class="config__field">
@@ -120,7 +122,7 @@ const homeStats = [stats[0], stats[1], stats[3]];
               <button type="button" class="seg__btn" data-cfg="dieet" data-val="vega" aria-pressed="false">Vegetarisch</button>
             </div>
           </div>
-          <p class="text-[0.8rem] text-[color:var(--color-muted)] mt-6 leading-relaxed">
+          <p class="text-[0.8rem] text-[color:var(--color-muted)] mt-6 leading-relaxed font-light">
             Een indicatie op basis van onze menu's. De keuken stelt de definitieve gangen samen rond het seizoen.
           </p>
         </div>
@@ -132,7 +134,7 @@ const homeStats = [stats[0], stats[1], stats[3]];
           </div>
           <div class="config__break" data-cfg-break></div>
           <div class="config__menu" data-cfg-menu></div>
-          <button type="button" class="btn btn-light config__cta" data-reserve-open>Reserveer deze avond <Icon name="arrow" size={14} stroke={1.8} /></button>
+          <button type="button" class="btn btn-solid btn-ring config__cta" data-reserve-open>Reserveer deze avond <Icon name="arrow" size={14} stroke={1.8} /></button>
         </div>
       </div>
     </div>
@@ -191,43 +193,43 @@ const homeStats = [stats[0], stats[1], stats[3]];
     </script>
   </section>
 
-  <!-- 6. Galerij -->
-  <section class="section-sm">
-    <div class="container">
-      <div class="flex flex-wrap items-end justify-between gap-4 mb-7" data-anim="up">
-        <div><p class="eyebrow">In beeld</p><h2 class="sec-title mt-4">Het pakhuis &amp; de haven</h2></div>
-        <a href="/licht/ons-verhaal" class="link-line">Ons verhaal <Icon name="arrow" size={15} stroke={1.8} /></a>
+  <!-- ══ Parallax gallery ══════════════════════════════════ -->
+  <section class="section overflow-hidden">
+    <div class="container text-center mb-4">
+      <p class="eyebrow eyebrow--line justify-center" data-anim="up">In beeld</p>
+      <h2 class="sec-title mt-5" data-anim="up">Het pakhuis &amp; de <span class="italic">haven</span></h2>
+    </div>
+    <div class="gallery-cols container-wide">
+      <div class="gallery-col" data-parallax="-7">
+        <div class="gallery-item"><img src="/photos/keuken-plating.jpg" alt="Gerecht wordt opgemaakt in de keuken" loading="lazy" /></div>
+        <div class="gallery-item"><img src="/photos/wijn-tafel.jpg" alt="Wijn wordt ingeschonken aan tafel" loading="lazy" /></div>
+        <div class="gallery-item"><img src="/photos/gasten-haven.jpg" alt="Gasten aan de haven" loading="lazy" /></div>
       </div>
-      <div class="gallery" data-anim="up">
-        <a href="/licht/menukaart" class="g-a"><img src="/photos/keuken-plating.jpg" alt="Gerecht wordt opgemaakt in de keuken" loading="lazy" /></a>
-        <a href="/licht/gezelschappen" class="g-b"><img src="/photos/gasten-haven.jpg" alt="Gasten aan de haven" loading="lazy" /></a>
-        <a href="/licht/menukaart" class="g-c"><img src="/photos/gerecht-handen.jpg" alt="Afwerken van een gerecht" loading="lazy" /></a>
-        <a href="/licht/ons-verhaal" class="g-d"><img src="/photos/haven-stad.jpg" alt="Zicht op Middelburg vanaf de haven" loading="lazy" /></a>
-        <a href="/licht/ons-verhaal" class="g-e"><img src="/photos/interieur-tafels.jpg" alt="Gedekte tafels onder de balken" loading="lazy" /></a>
+      <div class="gallery-col gallery-col--b" data-parallax="7">
+        <div class="gallery-item"><img src="/photos/gerecht-handen.jpg" alt="Afwerken van een gerecht" loading="lazy" /></div>
+        <div class="gallery-item"><img src="/photos/haven-stad.jpg" alt="Zicht op Middelburg vanaf de haven" loading="lazy" /></div>
+        <div class="gallery-item"><img src="/photos/interieur-tafels.jpg" alt="Gedekte tafels onder de balken" loading="lazy" /></div>
       </div>
     </div>
   </section>
 
-  <!-- 7. Stats -->
+  <!-- ══ Stats ═════════════════════════════════════════════ -->
   <section class="section-sm">
     <div class="container">
-      <div class="stats stats--3" data-stagger>
-        {homeStats.map((s) => (
-          <div data-anim="up">
-            <div class="stat__n">{s.n}</div>
-            <div class="stat__l">{s.l}</div>
-          </div>
-        ))}
+      <div class="stats" data-stagger>
+        <div data-anim="up"><div class="stat__n"><span class="italic accent-text">V.O.C.</span></div><div class="stat__l">Een pakhuis uit de Zeeuwse handelstijd</div></div>
+        <div data-anim="up"><div class="stat__n">4-7</div><div class="stat__l">Gangen, samengesteld rond het seizoen</div></div>
+        <div data-anim="up"><div class="stat__n">100%</div><div class="stat__l">Huisgemaakt, niets uit blik</div></div>
       </div>
     </div>
   </section>
 
-  <!-- 8. Reviews -->
-  <section class="section">
+  <!-- ══ Reviews ═══════════════════════════════════════════ -->
+  <section class="section-sm">
     <div class="container">
-      <div class="mb-9 text-center max-w-[52ch] mx-auto" data-anim="up">
-        <p class="eyebrow eyebrow--center justify-center">Gasten aan het woord</p>
-        <h2 class="sec-title mt-4">Een avond om <span class="accent">bij te blijven</span></h2>
+      <div class="mb-9" data-anim="up">
+        <p class="eyebrow eyebrow--line">Gasten aan het woord</p>
+        <h2 class="sec-title mt-5">Een avond om <span class="italic">bij te blijven</span></h2>
       </div>
       <div class="reviews" data-stagger>
         {reviews.map((r) => (
@@ -235,13 +237,32 @@ const homeStats = [stats[0], stats[1], stats[3]];
             <div class="review__stars">{Array.from({ length: 5 }).map(() => <Icon name="star" size={15} stroke={0} class="fill-current" />)}</div>
             <p class="review__q">&ldquo;{r.q}&rdquo;</p>
             <div class="review__foot">
-              <div><div class="review__name">{r.name}</div><div class="review__meta">{r.place}</div></div>
+              <div><div class="review__name">{r.name}</div><div class="text-[0.74rem] text-[color:var(--color-muted)]">{r.place}</div></div>
               <div class="review__src">{r.src}</div>
             </div>
           </div>
         ))}
       </div>
-      <p class="text-center text-[0.78rem] text-[color:var(--color-muted)] mt-7">Illustratieve gastreacties voor deze demo.</p>
+      <p class="text-[0.78rem] text-[color:var(--color-muted)] mt-7">Illustratieve gastreacties voor deze demo.</p>
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      const roles = ["belevenis", "ontdekking", "klassieker", "avond"];
+      function startRoles() {
+        const el = document.querySelector("[data-role]");
+        if (!el || window.__rolesBound) return;
+        window.__rolesBound = true;
+        let i = 0;
+        setInterval(() => {
+          i = (i + 1) % roles.length;
+          el.style.opacity = "0";
+          el.style.transform = "translateY(6px)";
+          setTimeout(() => { el.textContent = roles[i]; el.style.opacity = "1"; el.style.transform = "none"; }, 220);
+        }, 2400);
+      }
+      document.addEventListener("astro:page-load", startRoles);
+    })();
+  </script>
 </Base>

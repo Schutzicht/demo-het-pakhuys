@@ -2,7 +2,7 @@
 import "../styles/global-licht.css";
 import Header from "../components/HeaderLicht.astro";
 import Footer from "../components/FooterLicht.astro";
-import ReserveModal from "../components/ReserveModalLicht.astro";
+import ReserveModal from "../components/ReserveModal.astro";
 import Icon from "../components/Icon.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import Analytics from "@vercel/analytics/astro";
@@ -32,7 +32,7 @@ const words = ["Proeven", "Beleven", "Genieten"];
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f4efe7" />
+    <meta name="theme-color" content="#f5f6f8" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -49,29 +49,11 @@ const words = ["Proeven", "Beleven", "Genieten"];
     <meta name="twitter:title" content={title} />
     <meta name="twitter:image" content={ogImageAbs} />
 
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "name": "Het Packhuys",
-      "servesCuisine": ["Fine dining", "Frans", "Zeeuws"],
-      "priceRange": "€€€",
-      "image": ogImageAbs,
-      "url": siteUrl,
-      "telephone": "+31118674064",
-      "email": "info@hetpackhuys.nl",
-      "acceptsReservations": "True",
-      "address": { "@type": "PostalAddress", "streetAddress": "Kinderdijk 84", "postalCode": "4331 HH", "addressLocality": "Middelburg", "addressCountry": "NL" },
-      "geo": { "@type": "GeoCoordinates", "latitude": 51.4986, "longitude": 3.6127 },
-      "openingHoursSpecification": [
-        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"], "opens": "18:00", "closes": "21:00" }
-      ]
-    })} />
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
     />
 
     <ClientRouter />
@@ -282,17 +264,6 @@ const words = ["Proeven", "Beleven", "Genieten"];
         setupAnims();
         runLoader(playHero);
         ScrollTrigger.refresh();
-
-        // Reveal-failsafe: als de hero-entree na 2.5s nog verborgen is (JS/GSAP hapert),
-        // toon dan alle reveal-content alsnog. Voorkomt onzichtbare content.
-        setTimeout(() => {
-          const hn = document.querySelector<HTMLElement>(".hero [data-hero-name]");
-          if (hn && getComputedStyle(hn).opacity === "0") {
-            document.querySelectorAll<HTMLElement>("[data-anim], [data-hero-name], [data-hero-fade]").forEach((el) => {
-              el.style.opacity = "1"; el.style.transform = "none"; el.style.filter = "none";
-            });
-          }
-        }, 2500);
       }
 
       document.addEventListener("astro:page-load", setupPage);
