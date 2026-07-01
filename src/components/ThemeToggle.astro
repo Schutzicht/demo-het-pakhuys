@@ -1,13 +1,13 @@
 ---
 // Vergelijk-schakelaar: koppelt elke pagina aan zijn tegenhanger in het andere thema.
-// Donker leeft op /<pad>, licht op /licht/<pad>. Toggle springt 1-op-1 (zelfde pagina).
+// Licht is standaard op /<pad>, donker op /donker/<pad>. Toggle springt 1-op-1 (zelfde pagina).
 // data-astro-reload forceert een volledige load zodat het juiste thema-CSS laadt.
 let path = Astro.url.pathname.replace(/\/+$/, "");
 if (path === "") path = "/";
-const isLight = path === "/licht" || path.startsWith("/licht/");
-const darkPath = isLight ? (path === "/licht" ? "/" : path.slice("/licht".length)) : path;
-const lightPath = isLight ? path : (path === "/" ? "/licht" : "/licht" + path);
-const current: "donker" | "licht" = isLight ? "licht" : "donker";
+const isDark = path === "/donker" || path.startsWith("/donker/");
+const darkPath = isDark ? path : (path === "/" ? "/donker" : "/donker" + path);
+const lightPath = isDark ? (path === "/donker" ? "/" : path.slice("/donker".length)) : path;
+const current: "donker" | "licht" = isDark ? "donker" : "licht";
 ---
 <div class="tt" role="group" aria-label="Wissel demo-variant">
   <span class="tt__label">Demo</span>

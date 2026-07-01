@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
     <!-- Bar -->
     <div class="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] border-t border-[color:var(--color-stroke)] pt-12">
       <div>
-        <a href="/" class="inline-block">
+        <a href="/donker" class="inline-block">
           <img src="/brand/logo-packhuys-white.png" alt="Het Packhuys" class="foot__logo" />
         </a>
         <p class="text-sm text-[color:var(--color-muted)] mt-4 max-w-[32ch] font-light">
@@ -52,7 +52,7 @@ const year = new Date().getFullYear();
       <div>
         <div class="text-[0.68rem] uppercase tracking-[0.2em] text-[color:var(--color-muted)] mb-4">Menu</div>
         <nav class="space-y-2 text-sm" aria-label="Footermenu">
-          {nav.slice(1).map((item) => <div><a href={item.href} class="link-line">{item.label}</a></div>)}
+          {nav.slice(1).map((item) => <div><a href={"/donker" + item.href} class="link-line">{item.label}</a></div>)}
         </nav>
       </div>
     </div>

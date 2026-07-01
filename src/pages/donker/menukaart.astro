@@ -1,5 +1,5 @@
 ---
-import Base from "../../layouts/BaseLicht.astro";
+import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
 import { menus, dishes, site } from "../../data/site";
 
@@ -14,7 +14,7 @@ const tagClass = (t: string) =>
   <section class="page-hero">
     <div class="page-hero__media" aria-hidden="true"><img src="/photos/chef-plating.jpg" alt="" /></div>
     <div class="page-hero__inner container">
-      <p class="crumbs"><a href="/licht" class="link-underline">Home</a> &nbsp;/&nbsp; Menukaart</p>
+      <p class="crumbs"><a href="/donker" class="link-underline">Home</a> &nbsp;/&nbsp; Menukaart</p>
       <h1>De menukaart</h1>
       <p>Eén tasting menu, opgebouwd rond wat het seizoen en de Zeeuwse delta op dat moment te bieden hebben. U kiest het aantal gangen, de keuken verrast u.</p>
     </div>
@@ -36,7 +36,7 @@ const tagClass = (t: string) =>
       </div>
       <p class="text-sm text-[color:var(--color-ink-70)] mt-5 leading-relaxed max-w-[70ch]">
         Het wijnarrangement is optioneel en per gang afgestemd door onze gastvrouw. Liever zelf kiezen? Bekijk de
-        <a href="/licht/wijnen" class="link-underline">wijnkaart</a>.
+        <a href="/donker/wijnen" class="link-underline">wijnkaart</a>.
       </p>
     </div>
   </section>
@@ -95,7 +95,7 @@ const tagClass = (t: string) =>
           </p>
         </div>
         <div class="flex md:justify-end">
-          <a href="/licht/wijnen" class="btn btn-brass">Naar de wijnen<Icon name="arrow" size={14} stroke={2} /></a>
+          <a href="/donker/wijnen" class="btn btn-brass">Naar de wijnen<Icon name="arrow" size={14} stroke={2} /></a>
         </div>
       </div>
     </div>

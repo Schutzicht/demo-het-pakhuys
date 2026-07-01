@@ -1,5 +1,5 @@
 ---
-import Base from "../../layouts/BaseLicht.astro";
+import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
 import { site, dishes, reviews } from "../../data/site";
 
@@ -36,7 +36,7 @@ const dessert = { name: dishes[7].name };
         </p>
         <div class="hero__cta" data-hero-fade>
           <button type="button" class="btn btn-solid btn-ring" data-reserve-open>Reserveer een tafel <Icon name="arrow" size={14} stroke={1.8} /></button>
-          <a href="/licht/menukaart" class="btn btn-outline">Bekijk de kaart</a>
+          <a href="/donker/menukaart" class="btn btn-outline">Bekijk de kaart</a>
         </div>
       </div>
     </div>
@@ -57,7 +57,7 @@ const dessert = { name: dishes[7].name };
         <p class="lede max-w-[54ch]" data-anim="up">
           Achter de dikke muren aan de Kinderdijk schuift u aan onder eeuwenoud hout, met uitzicht over de boten van de jachthaven. Onze keuken werkt met wat het seizoen en de Zeeuwse delta op dat moment te bieden hebben.
         </p>
-        <a href="/licht/ons-verhaal" class="btn btn-outline" data-anim="up">Ons verhaal <Icon name="arrow" size={14} stroke={1.8} /></a>
+        <a href="/donker/ons-verhaal" class="btn btn-outline" data-anim="up">Ons verhaal <Icon name="arrow" size={14} stroke={1.8} /></a>
       </div>
     </div>
   </section>

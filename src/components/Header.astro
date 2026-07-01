@@ -1,19 +1,21 @@
 ---
 import { nav } from "../data/site";
 import Icon from "./Icon.astro";
+// Donkere variant leeft nu op /donker.
+const D = (h: string) => (h === "/" ? "/donker" : "/donker" + h);
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
-const isCurrent = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
+const isCurrent = (href: string) => (href === "/donker" ? path === "/donker" : path.startsWith(href));
 ---
 
 <nav class="nav" data-nav aria-label="Hoofdmenu">
   <div class="nav__pill">
-    <a href="/" class="nav__logo" aria-label="Het Packhuys, naar home">
+    <a href="/donker" class="nav__logo" aria-label="Het Packhuys, naar home">
       <img src="/brand/logo-packhuys-white.png" alt="Het Packhuys" class="nav__logo-img" />
     </a>
     <span class="nav__divider"></span>
     <div class="nav__links inline-flex items-center">
       {nav.slice(1).map((item) => (
-        <a href={item.href} class="nav__link" aria-current={isCurrent(item.href) ? "page" : undefined}>{item.label}</a>
+        <a href={D(item.href)} class="nav__link" aria-current={isCurrent(D(item.href)) ? "page" : undefined}>{item.label}</a>
       ))}
     </div>
     <span class="nav__divider"></span>
@@ -32,7 +34,7 @@ const isCurrent = (href: string) => (href === "/" ? path === "/" : path.startsWi
     <Icon name="close" size={22} stroke={1.8} />
   </button>
   {nav.map((item, i) => (
-    <a href={item.href} aria-current={isCurrent(item.href) ? "page" : undefined}>
+    <a href={D(item.href)} aria-current={isCurrent(D(item.href)) ? "page" : undefined}>
       {item.label}
       <span>{String(i + 1).padStart(2, "0")}</span>
     </a>
