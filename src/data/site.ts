@@ -110,8 +110,8 @@ export const dishes = [
 export const features = [
   {
     icon: "anchor",
-    title: "Een echt pakhuis",
-    body: "U dineert in een authentiek V.O.C.-pakhuis met originele houten balkenplafonds, direct aan het water.",
+    title: "Een echt pakhuys",
+    body: "U dineert in een authentiek V.O.C.-pakhuys met originele houten balkenplafonds, direct aan het water.",
   },
   {
     icon: "lobster",
@@ -126,7 +126,7 @@ export const features = [
 ];
 
 export const stats = [
-  { n: "V.O.C.", l: "Pakhuis uit de Zeeuwse handelstijd" },
+  { n: "V.O.C.", l: "Pakhuys uit de Zeeuwse handelstijd" },
   { n: "4 tot 7", l: "Gangen, samengesteld met het seizoen" },
   { n: "0 m", l: "Tot het water van de jachthaven" },
   { n: "100%", l: "Huisgemaakt, niets uit blik" },
@@ -141,7 +141,7 @@ export const reviews = [
     place: "Diner met z'n tweeën",
   },
   {
-    q: "Eten in dat oude pakhuis met uitzicht over de haven voelt bijzonder. Elke gang was doordacht, de wijnen erbij maakten het af.",
+    q: "Eten in dat oude pakhuys met uitzicht over de haven voelt bijzonder. Elke gang was doordacht, de wijnen erbij maakten het af.",
     name: "Joost D.",
     src: "9,6",
     place: "Tasting van 6 gangen",
@@ -155,7 +155,7 @@ export const reviews = [
 ];
 
 export const galleryImages = [
-  { src: "/photos/interieur-tafels.jpg", alt: "Gedekte tafels in het pakhuis" },
+  { src: "/photos/interieur-tafels.jpg", alt: "Gedekte tafels in het pakhuys" },
   { src: "/photos/haven-boten.jpg", alt: "Zicht op de jachthaven van Middelburg" },
   { src: "/photos/chef-afwerken.jpg", alt: "Afwerken van een gerecht in de keuken" },
   { src: "/photos/wijn-inschenken.jpg", alt: "Inschenken van de wijn" },
