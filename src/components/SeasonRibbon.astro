@@ -1,0 +1,13 @@
+---
+import Icon from "./Icon.astro";
+// Seizoens-lint onder de hero. Kent zichzelf licht (root) of donker (/donker).
+const isDark = Astro.url.pathname === "/donker" || Astro.url.pathname.startsWith("/donker/");
+const menuHref = isDark ? "/donker/menukaart" : "/menukaart";
+---
+<div class="ribbon">
+  <div class="container ribbon__in">
+    <span class="ribbon__dot" aria-hidden="true"></span>
+    <p class="ribbon__txt">Ons <span class="accent-text">zomermenu</span> staat klaar, geserveerd t/m eind augustus.</p>
+    <a href={menuHref} class="ribbon__link">Bekijk de kaart <Icon name="arrow" size={13} stroke={1.8} /></a>
+  </div>
+</div>

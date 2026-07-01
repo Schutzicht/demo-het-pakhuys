@@ -49,6 +49,24 @@ const words = ["Proeven", "Beleven", "Genieten"];
     <meta name="twitter:title" content={title} />
     <meta name="twitter:image" content={ogImageAbs} />
 
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "Het Packhuys",
+      "servesCuisine": ["Fine dining", "Frans", "Zeeuws"],
+      "priceRange": "€€€",
+      "image": ogImageAbs,
+      "url": siteUrl,
+      "telephone": "+31118674064",
+      "email": "mail@hetpackhuys.nl",
+      "acceptsReservations": "True",
+      "address": { "@type": "PostalAddress", "streetAddress": "Kinderdijk 84", "postalCode": "4331 HH", "addressLocality": "Middelburg", "addressCountry": "NL" },
+      "geo": { "@type": "GeoCoordinates", "latitude": 51.4979, "longitude": 3.6118 },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday", "Saturday"], "opens": "18:00", "closes": "22:00" }
+      ]
+    })} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

@@ -1,0 +1,25 @@
+---
+import { site } from "../data/site";
+import Icon from "./Icon.astro";
+---
+<section class="section-sm pt-0">
+  <div class="container">
+    <div class="zenchef-ph" data-reveal>
+      <div class="max-w-[54ch]">
+        <p class="zenchef-ph__badge">Reserveren via ZenChef</p>
+        <h2 class="sec-title mt-3">Direct een tafel boeken</h2>
+        <p class="mt-4 text-[color:var(--color-muted)] leading-relaxed">
+          Hier komt de live ZenChef-boekingsmodule, gekoppeld aan jullie bestaande abonnement. De gast ziet meteen de beschikbaarheid en boekt in een paar klikken, zonder de site te verlaten.
+        </p>
+      </div>
+      <div class="zenchef-ph__frame">
+        <Icon name="calendar" size={26} />
+        <span>Live beschikbaarheid &amp; boeking</span>
+      </div>
+      <div class="flex flex-wrap gap-3 mt-6">
+        <a href={site.zenchef.reserve} target="_blank" rel="noopener" class="btn btn-solid btn-ring">Online reserveren <Icon name="arrowUpRight" size={14} stroke={1.8} /></a>
+        <a href={site.phoneHref} class="btn btn-outline"><Icon name="phone" size={15} /> {site.phone}</a>
+      </div>
+    </div>
+  </div>
+</section>

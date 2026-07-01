@@ -1,6 +1,8 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
+import SeasonRibbon from "../../components/SeasonRibbon.astro";
+import InstagramStrip from "../../components/InstagramStrip.astro";
 import { site, dishes, reviews } from "../../data/site";
 
 const signatures = dishes.filter((d) => d.sign).slice(0, 3);
@@ -42,6 +44,8 @@ const dessert = { name: dishes[7].name };
     </div>
     <div class="scroll-ind" aria-hidden="true"><span>Scroll</span><div class="scroll-ind__rail"></div></div>
   </section>
+
+  <SeasonRibbon />
 
   <!-- ══ Statement ═════════════════════════════════════════ -->
   <section class="section">
@@ -246,6 +250,8 @@ const dessert = { name: dishes[7].name };
       <p class="text-[0.78rem] text-[color:var(--color-muted)] mt-7">Illustratieve gastreacties voor deze demo.</p>
     </div>
   </section>
+
+  <InstagramStrip />
 
   <script is:inline>
     (function () {

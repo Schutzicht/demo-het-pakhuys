@@ -1,6 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import Icon from "../../components/Icon.astro";
+import ZenchefBlock from "../../components/ZenchefBlock.astro";
 import { site, hours } from "../../data/site";
 
 // JS-dagindex (0 = zondag) per rij, voor het markeren van 'vandaag'
@@ -79,6 +80,8 @@ const mapEmbed = "https://www.google.com/maps?q=Kinderdijk+84,+4331+HH+Middelbur
       </div>
     </div>
   </section>
+
+  <ZenchefBlock />
 
   <!-- Kaart -->
   <section class="section-sm pt-0">
